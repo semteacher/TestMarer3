@@ -1,0 +1,19 @@
+CREATE OR ALTER trigger ask_add for testasks
+active after insert position 0
+AS
+begin
+  /* Trigger text */
+  update sciens set sciens.ask_count = sciens.ask_count+1 where sciens.id_sciens = new.sciens_id;
+end
+
+
+
+
+
+CREATE OR ALTER trigger ask_del for testasks
+active after delete position 0
+AS
+begin
+  /* Trigger text */
+  update sciens set sciens.ask_count = sciens.ask_count-1 where sciens.id_sciens = old.sciens_id;
+end

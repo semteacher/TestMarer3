@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/6.0/XMLDataBinding">
+	<xs:element name="quiz" type="quizType"/>
+	<xs:complexType name="quizType"><xs:annotation>
+			<xs:appinfo xdb:docElement="quiz"/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="question" type="questionType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="questionType">
+		<xs:sequence>
+			<xs:element name="category" type="categoryType" minOccurs="0"/>
+			<xs:element name="name" type="nameType"/>
+			<xs:element name="questiontext" type="questiontextType"/>
+			<xs:element name="image" type="xs:string"/>
+			<xs:element name="generalfeedback" type="generalfeedbackType"/>
+			<xs:element name="defaultgrade" type="xs:integer"/>
+			<xs:element name="penalty" type="xs:string"/>
+			<xs:element name="hidden" type="xs:integer"/>
+			<xs:element name="shuffleanswers" type="xs:integer" maxOccurs="unbounded"/>
+			<xs:element name="single" type="xs:string"/>
+			<xs:element name="correctfeedback" type="correctfeedbackType"/>
+			<xs:element name="partiallycorrectfeedback" type="partiallycorrectfeedbackType"/>
+			<xs:element name="incorrectfeedback" type="incorrectfeedbackType"/>
+			<xs:element name="answernumbering" type="xs:string"/>
+			<xs:element name="answer" type="answerType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="categoryType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nameType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="questiontextType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="format" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="generalfeedbackType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="correctfeedbackType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="partiallycorrectfeedbackType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="incorrectfeedbackType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="answerType"><xs:annotation>
+			<xs:appinfo xdb:repeated="True"/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+			<xs:element name="feedback" type="feedbackType"/>
+		</xs:sequence>
+		<xs:attribute name="fraction" type="xs:integer"/>
+	</xs:complexType>
+	<xs:complexType name="feedbackType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
