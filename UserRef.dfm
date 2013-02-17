@@ -1,6 +1,6 @@
 object UserRefForm: TUserRefForm
-  Left = 243
-  Top = 184
+  Left = 326
+  Top = 194
   BorderStyle = bsDialog
   Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095#1110
   ClientHeight = 400
@@ -246,6 +246,7 @@ object UserRefForm: TUserRefForm
     end
   end
   object pFIBSecurityService1: TpFIBSecurityService
+    Protocol = TCP
     LoginPrompt = False
     SecurityAction = ActionAddUser
     UserID = 0

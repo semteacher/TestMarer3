@@ -1,52 +1,62 @@
 [Closed Files]
-File_0=SourceModule,'D:\Delphi\LIB\FibPlus_685\fib.pas',0,1,504,1,519,0,0
-File_1=SourceModule,'D:\Delphi\testmaker09\DepEdit.pas',0,1,1,1,1,0,0
-File_2=SourceModule,'D:\Delphi\testmaker09\basevar.pas',0,1,118,24,129,0,0
-File_3=SourceModule,'D:\Delphi\testmaker09\about.pas',0,1,1,1,38,0,0
-File_4=SourceModule,'D:\Delphi\testmaker09\UserRef.pas',0,1,77,64,82,0,0
-File_5=SourceModule,'D:\Delphi\LIB\rxlib277\Units\rxDBRichEd.pas',0,1,266,26,276,0,0
-File_6=SourceModule,'D:\Delphi\LIB\DevEx2\ExpressLibrary\Sources\cxContainer.pas',0,1,6195,1,6204,0,0
-File_7=SourceModule,'D:\Delphi\LIB\fastreport_4.10.5\LibD7\frxClass.pas',0,1,12601,1,12610,0,0
-File_8=SourceModule,'D:\Delphi\LIB\DevEx2\ExpressDataController\Sources\cxCustomData.pas',0,1,8885,1,8897,0,0
+File_0=SourceModule,'D:\Delphi\testmaker09\DepEdit.pas',0,1,1,1,1,0,0
+File_1=SourceModule,'D:\Delphi\testmaker09\basevar.pas',0,1,118,24,129,0,0
+File_2=SourceModule,'D:\Delphi\testmaker09\about.pas',0,1,1,1,38,0,0
+File_3=SourceModule,'D:\Delphi\LIB\rxlib277\Units\rxDBRichEd.pas',0,1,266,26,276,0,0
+File_4=SourceModule,'D:\Delphi\LIB\DevEx2\ExpressLibrary\Sources\cxContainer.pas',0,1,6195,1,6204,0,0
+File_5=SourceModule,'D:\Delphi\LIB\fastreport_4.10.5\LibD7\frxClass.pas',0,1,12601,1,12610,0,0
+File_6=SourceModule,'D:\Delphi\LIB\DevEx2\ExpressDataController\Sources\cxCustomData.pas',0,1,8885,1,8897,0,0
 
 [Modules]
-Module0=D:\Delphi\testmaker09\Main.pas
-Module1=D:\Delphi\LIB\exlib41\DBSumLst.pas
-Module2=D:\Delphi\testmaker09\datamod.pas
-Module3=D:\Delphi\testmaker09\advtestmodedit.pas
-Module4=D:\Delphi\testmaker09\mykernel.pas
-Module5=D:\Delphi\testmaker09\settings.pas
-Module6=D:\Delphi\testmaker09\answedit.pas
-Module7=D:\Delphi\testmaker09\testmaker3.DPR
-Count=8
+Module0=D:\Delphi\testmaker09\settings.pas
+Module1=D:\Delphi\testmaker09\datamod.pas
+Module2=D:\Delphi\testmaker09\UserRef.pas
+Module3=D:\Delphi\testmaker09\Main.pas
+Module4=D:\Delphi\testmaker09\advtestmodedit.pas
+Module5=D:\Delphi\LIB\exlib41\DBSumLst.pas
+Module6=D:\Delphi\LIB\FibPlus_685\fib.pas
+Module7=D:\Delphi\testmaker09\mykernel.pas
+Module8=D:\Delphi\testmaker09\answedit.pas
+Module9=D:\Delphi\testmaker09\testmaker3.DPR
+Count=10
 EditWindowCount=1
 
-[D:\Delphi\testmaker09\Main.pas]
+[D:\Delphi\testmaker09\settings.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=1
+
+[D:\Delphi\testmaker09\datamod.pas]
+ModuleType=SourceModule
+FormState=3
+FormOnTop=0
+
+[D:\Delphi\testmaker09\UserRef.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=1
+
+[D:\Delphi\testmaker09\Main.pas]
+ModuleType=SourceModule
+FormState=3
+FormOnTop=0
+
+[D:\Delphi\testmaker09\advtestmodedit.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
 
 [D:\Delphi\LIB\exlib41\DBSumLst.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Delphi\testmaker09\datamod.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Delphi\testmaker09\advtestmodedit.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=1
-
-[D:\Delphi\testmaker09\mykernel.pas]
+[D:\Delphi\LIB\FibPlus_685\fib.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Delphi\testmaker09\settings.pas]
+[D:\Delphi\testmaker09\mykernel.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -66,8 +76,8 @@ FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=8
-CurrentView=6
+ViewCount=10
+CurrentView=3
 View0=0
 View1=1
 View2=2
@@ -76,13 +86,15 @@ View4=4
 View5=5
 View6=6
 View7=7
+View8=8
+View9=9
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
 State=0
-Left=172
-Top=237
+Left=90
+Top=93
 Width=1134
 Height=621
 MaxLeft=-4
@@ -99,8 +111,8 @@ BottomPanelData=0000040000000000660400000000000002550000000000000001000000000000
 
 [View0]
 Module=D:\Delphi\testmaker09\testmaker3.DPR
-CursorX=63
-CursorY=51
+CursorX=9
+CursorY=59
 TopLine=41
 LeftCol=1
 
@@ -114,15 +126,15 @@ LeftCol=1
 [View2]
 Module=D:\Delphi\testmaker09\Main.pas
 CursorX=1
-CursorY=1225
-TopLine=1223
+CursorY=1511
+TopLine=1505
 LeftCol=1
 
 [View3]
 Module=D:\Delphi\testmaker09\settings.pas
-CursorX=19
-CursorY=1
-TopLine=58
+CursorX=34
+CursorY=203
+TopLine=185
 LeftCol=1
 
 [View4]
@@ -136,17 +148,31 @@ LeftCol=1
 Module=D:\Delphi\testmaker09\datamod.pas
 CursorX=1
 CursorY=2451
-TopLine=2432
+TopLine=2405
 LeftCol=1
 
 [View6]
+Module=D:\Delphi\testmaker09\UserRef.pas
+CursorX=36
+CursorY=227
+TopLine=210
+LeftCol=1
+
+[View7]
+Module=D:\Delphi\LIB\FibPlus_685\fib.pas
+CursorX=1
+CursorY=519
+TopLine=515
+LeftCol=1
+
+[View8]
 Module=D:\Delphi\LIB\exlib41\DBSumLst.pas
 CursorX=28
 CursorY=321
 TopLine=307
 LeftCol=1
 
-[View7]
+[View9]
 Module=D:\Delphi\testmaker09\advtestmodedit.pas
 CursorX=6
 CursorY=228
@@ -275,7 +301,7 @@ Dockable=0
 SplitPos=121
 ArrangeBy=Name
 SelectedItem=Caption
-ExpandedItems=Action,Anchors,Attributes,Bands,BorderIcons,Buttons,ColumnDefValues.Title,DataController,DataController.Filter,DataSource,DataSource.DataSet,DataSource.DataSet.Options,DataSource.DataSet.PrepareOptions,DefaultFont,DesignDBOptions,DetailConditions,DisplayOptions,Font,Footer,GridView,KeyOptions,LangOptions,LevelTabs,LookAndFeel,NavigatorButtons.Delete,ObjectTypes,Options,OptionsEh,OptionsEx,ParseOptions,Pen,PrepareOptions,PrintOptions,Properties,Properties.AssignedValues,Properties.DefaultValue,ProviderFlags,ReportOptions,SortOptions,SQLs,STFilter,Title,TraceFlags,Value,VertScrollBar,VisibleButtons
+ExpandedItems=Action,Anchors,Attributes,Bands,BorderIcons,Buttons,ColumnDefValues.Title,ConnectParams,DataController,DataController.Filter,DataSource,DataSource.DataSet,DataSource.DataSet.Options,DataSource.DataSet.PrepareOptions,DefaultFont,DesignDBOptions,DetailConditions,DisplayOptions,Font,Footer,GridView,KeyOptions,LangOptions,LevelTabs,LookAndFeel,NavigatorButtons.Delete,ObjectTypes,Options,OptionsEh,OptionsEx,ParseOptions,Pen,PrepareOptions,PrintOptions,Properties,Properties.AssignedValues,Properties.DefaultValue,ProviderFlags,ReportOptions,SortOptions,SQLs,STFilter,Title,TraceFlags,Value,VertScrollBar,VisibleButtons
 HiddenCategories=
 
 [BreakpointWindow]
