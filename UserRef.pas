@@ -335,16 +335,26 @@ begin
 end;
 
 procedure TUserRefForm.EstablishSecurityService;
+var
+  pos_srvadr : integer;
+  tmp_srvadr : string;
 begin
+  //get server IP adres
+  pos_srvadr := pos(':',Settings.CurrDBFileName);
+  tmp_srvadr := copy(Settings.CurrDBFileName, 0, pos_srvadr-1); //extract IP
+  //set options
   pFIBSecurityService1.LibraryName := testeditDM.TestDB.LibraryName;
-  pFIBSecurityService1.ServerName := testeditDM.TestDB.DBSiteName;
+  pFIBSecurityService1.Protocol := TCP;
+  ///pFIBSecurityService1.ServerName := testeditDM.TestDB.DBSiteName;
+  //check - is it connection local by testing path - like 'd:'
+  if pos_srvadr <= 2 then pFIBSecurityService1.ServerName := testeditDM.TestDB.DBSiteName //local server - name
+  else pFIBSecurityService1.ServerName := tmp_srvadr; //remote server - IP
+  //set parameters
   pFIBSecurityService1.Params.Clear;
   pFIBSecurityService1.Params.Add('user_name='+ Settings.LUserName);
   pFIBSecurityService1.Params.Add('password='+ Settings.LUserPass);
 //  pFIBSecurityService1.Params.Add('sql_role_name='+Settings.LUserSQLRole);
 //  pFIBSecurityService1.Params.Add('lc_ctype='+locatecode);
-//  pFIBSecurityService1.UserName := basevar.Settings.LUserName;
-//  pFIBSecurityService1.Password := basevar.Settings.LUserPass;
 end;
 
 

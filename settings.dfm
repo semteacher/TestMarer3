@@ -1,6 +1,6 @@
 object SettingsEditForm: TSettingsEditForm
-  Left = 260
-  Top = 0
+  Left = 264
+  Top = 34
   BorderStyle = bsDialog
   Caption = #1053#1072#1083#1072#1096#1090#1091#1074#1072#1085#1085#1103' '#1087#1088#1086#1075#1088#1072#1084#1080
   ClientHeight = 543
