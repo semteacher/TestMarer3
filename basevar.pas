@@ -20,11 +20,11 @@ const
   //database default file location
   dbfilepath_loc = 'D:\TEST_DB\'; {local pc}
   dbfilepath_loc_name = 'Локальна база даних';
-  dbfilepath_tdmu = '217.196.164.19:D:\DB\Java\'; {tdmu global server}
+  dbfilepath_tdmu = '10.21.0.204:/var/data/'; {tdmu campus server}
   dbfilepath_tdmu_name = 'Сервер центру тестування ТДМУ';
   dbfilepath_medinf = '192.168.3.100:D:\DB\Java\'; {medinfdep local server}
   dbfilepath_medinf_name = 'Сервер кафедри медичної інформатики';
-  dbfilepath_medinf_out = '10.21.0.193:D:\DB\Java\'; {medinfdep local server}
+  dbfilepath_medinf_out = '10.21.0.193:D:\DB\Java\'; {medinfdep campus server}
   dbfilepath_medinf_out_name = 'Сервер каф. медінформатики (зовн.)';
   //database default connection properties
   dbusername = 'SYSDBA';

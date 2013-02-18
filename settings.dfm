@@ -3,7 +3,7 @@ object SettingsEditForm: TSettingsEditForm
   Top = 34
   BorderStyle = bsDialog
   Caption = #1053#1072#1083#1072#1096#1090#1091#1074#1072#1085#1085#1103' '#1087#1088#1086#1075#1088#1072#1084#1080
-  ClientHeight = 543
+  ClientHeight = 550
   ClientWidth = 654
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object SettingsEditForm: TSettingsEditForm
   TextHeight = 13
   object ButtonPanel1: TButtonPanel
     Left = 0
-    Top = 518
+    Top = 525
     Width = 654
     Height = 25
     Align = alBottom
