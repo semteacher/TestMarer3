@@ -218,6 +218,12 @@ type
     BatchAskListWithAnswer: TAction;
     N17: TMenuItem;
     BatchPrintAskListItem: TMenuItem;
+    SrchAnswerlessQstCmd: TAction;
+    N15: TMenuItem;
+    AnswerlessQstMenu: TMenuItem;
+    InvalidQstenu: TMenuItem;
+    SrchAnswerCountNotEqueaCmd: TAction;
+    AnswerLessThenMenu: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure ShowHint(Sender: TObject);
     procedure FilePrintSetup(Sender: TObject);
@@ -325,6 +331,8 @@ type
 
     function GetSpecialPath(CSIDL: word): string;
     function FileNameAutoCorrect(AFileName: string): String;
+    procedure SrchAnswerlessQstCmdExecute(Sender: TObject);
+    procedure SrchAnswerCountNotEqueaCmdExecute(Sender: TObject);
   private
     { Private declarations }
     ShowAnswers, AllowExportPapersFR : boolean;
@@ -1895,7 +1903,7 @@ var
   InvlidAskId,InvalidSciensID : integer;
   SearchRes : boolean;
 begin
-//
+  //get parameter
   InvlidAskId := strtoint(inputbox('Швидкий пошук', 'Введіть код неваідного питання:', '0' ));
   //search sciens ID
   testeditDM.InvalidAskSearch(InvlidAskId, InvalidSciensID, SearchRes);
@@ -1917,6 +1925,63 @@ begin
     else Messagedlg('Помилка вибору категорії', mtError, [mbOK], 0);
   end
   else Messagedlg('Нічого не знайдено', mtError, [mbOK], 0);
+end;
+{---------------2013-search question without answers--------------------}
+procedure TMainForm.SrchAnswerlessQstCmdExecute(Sender: TObject);
+var
+  FoundRes : Variant;
+  SearchRes : boolean;
+  AItemList: TcxFilterCriteriaItemList;
+begin
+  //search by sciens ID
+  testeditDM.SearchAskWithoutCorrectAnswer(testeditDM.SciensDataSet.FBN('ID_SCIENS').asstring, FoundRes, SearchRes);
+  //set ask list filter
+  if SearchRes=true then
+  begin
+    AskGridDBTableView.DataController.Filter.BeginUpdate;
+    try
+      AskGridDBTableView.DataController.Filter.Root.Clear;
+      AItemList := AskGridDBTableView.DataController.Filter.Root.AddItemList(fboAND);
+      AItemList.AddItem(AskGridDBTableViewID_ASK, foInList, FoundRes, SrchAnswerlessQstCmd.Caption);
+      try
+        AskGridDBTableView.Datacontroller.Filter.Active := True;
+      except
+      end;
+    finally
+      AskGridDBTableView.DataController.Filter.EndUpdate;
+    end;
+  end;
+  Messagedlg('Знайдено проблемних питань: '+ inttostr(VarArrayHighBound(FoundRes, 1)+1), mtWarning, [mbOK], 0);
+end;
+{---------------2013-search question with answer count less than required--------------------}
+procedure TMainForm.SrchAnswerCountNotEqueaCmdExecute(Sender: TObject);
+var
+  CorrectAnswerCount : string;
+  FoundRes : Variant;
+  SearchRes : boolean;
+  AItemList: TcxFilterCriteriaItemList;
+begin
+  //get parameter
+  CorrectAnswerCount := (inputbox('Швидкий пошук', 'Введіть задану кількість відповідей:', inttostr(DefOpenAskAnswerCount) ));
+  //search by sciens ID
+  testeditDM.SearchAskWithIncorrectAnswersCount(testeditDM.SciensDataSet.FBN('ID_SCIENS').asstring, CorrectAnswerCount, FoundRes, SearchRes);
+  //set ask list filter
+  if SearchRes=true then
+  begin
+    AskGridDBTableView.DataController.Filter.BeginUpdate;
+    try
+      AskGridDBTableView.DataController.Filter.Root.Clear;
+      AItemList := AskGridDBTableView.DataController.Filter.Root.AddItemList(fboAND);
+      AItemList.AddItem(AskGridDBTableViewID_ASK, foInList, FoundRes, SrchAnswerCountNotEqueaCmd.Caption+' '+CorrectAnswerCount);
+      try
+        AskGridDBTableView.Datacontroller.Filter.Active := True;
+      except
+      end;
+    finally
+      AskGridDBTableView.DataController.Filter.EndUpdate;
+    end;
+  end;
+  Messagedlg('Знайдено проблемних питань: '+ inttostr(VarArrayHighBound(FoundRes, 1)+1), mtWarning, [mbOK], 0);
 end;
 {=============================================================================================}
 {---------------2012-display report with list question without answer text--------------------}
@@ -2137,5 +2202,7 @@ begin
     Result := AFileName;
   end;
 end;
+
+
 
 end.
