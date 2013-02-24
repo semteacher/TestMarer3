@@ -584,6 +584,8 @@ type
     procedure UpdateAskCountPerSciens(tmpsciensid:integer);
 
     procedure InvalidAskSearch(AskSearchID:integer; var SrcSciensId:integer; var SearchRes:boolean);
+    procedure SearchAskWithoutCorrectAnswer( SrcSciensId:string; var FoundRes:Variant; var SearchRes:boolean);
+    procedure SearchAskWithIncorrectAnswersCount(SrcSciensId:string; CorrAnswCount:string; var FoundRes:Variant; var SearchRes:boolean);
 
     procedure PrintQuestionAnswersToHTML(filename:string);
     procedure PrepareCurrentSciensAsksList(strSciensID:string; ShowAnswers:boolean; ShowArchived:boolean);
@@ -2279,7 +2281,94 @@ begin
   else SearchRes := false; //not found!
   TmpFibQuery.Close;
 end;
-
+{--------------2013 - search database for the ask without correct answer-----------------}
+procedure TtesteditDM.SearchAskWithoutCorrectAnswer( SrcSciensId:string; var FoundRes:Variant; var SearchRes:boolean);
+var
+  tmpSQL : string;
+  i : integer;
+begin
+  SearchRes := false;
+  //define query
+  tmpSQL := 'SELECT testasks.id_ask FROM testasks INNER JOIN answers ON (testasks.id_ask= answers.ask_id)';
+  tmpSQL := tmpSQL + 'WHERE testasks.sciens_id = '+SrcSciensId;
+  tmpSQL := tmpSQL + 'GROUP BY testasks.id_ask HAVING sum( answers.weight ) =0';
+  //set query to FIB component
+  TmpFibQuery.SQL.Text := tmpSQL;
+  //set query options
+  TmpFIBQuery.Options := [qoStartTransaction];
+  TmpFIBQuery.GoToFirstRecordOnExecute := true;
+  //execute
+  TmpFibQuery.Prepare;
+  TmpFibQuery.ExecQuery;
+  //count records
+  i := 0;
+  while not TmpFibQuery.Eof do
+  begin
+    TmpFibQuery.Next;
+    inc(i);
+  end;
+  TmpFibQuery.Close;   //close  query
+  if i > 0 then  //incorrect records found!
+  begin
+    //reopen query
+    TmpFibQuery.ExecQuery;
+    //read data
+    SearchRes := true;
+    FoundRes := VarArrayCreate([0,i-1], varInteger);
+    i := 0;
+    while not TmpFibQuery.Eof do
+    begin
+      FoundRes[i] := TmpFibQuery.FieldByName('ID_ASK').AsInteger;
+      TmpFibQuery.Next;
+      inc(i);
+    end;
+    TmpFibQuery.Close;
+  end;
+end;
+{--------------2013- search database for the ask that have an incorrect answer count-----------------}
+procedure TtesteditDM.SearchAskWithIncorrectAnswersCount(SrcSciensId:string; CorrAnswCount:string; var FoundRes:Variant; var SearchRes:boolean);
+var
+  tmpSQL : string;
+  i : integer;
+begin
+  SearchRes := false;
+  //define query
+  tmpSQL := 'SELECT testasks.id_ask FROM testasks INNER JOIN answers ON (testasks.id_ask= answers.ask_id)';
+  tmpSQL := tmpSQL + 'WHERE testasks.sciens_id = '+SrcSciensId;
+  tmpSQL := tmpSQL + 'GROUP BY testasks.id_ask HAVING count( answers.id_answer ) <> '+CorrAnswCount;
+  //set query to FIB component
+  TmpFibQuery.SQL.Text := tmpSQL;
+  //set query options
+  TmpFIBQuery.Options := [qoStartTransaction];
+  TmpFIBQuery.GoToFirstRecordOnExecute := true;
+  //execute
+  TmpFibQuery.Prepare;
+  TmpFibQuery.ExecQuery;
+  //count records
+  i := 0;
+  while not TmpFibQuery.Eof do
+  begin
+    TmpFibQuery.Next;
+    inc(i);
+  end;
+  TmpFibQuery.Close;    //close  query
+  if i > 0 then //incorrect records found!
+  begin
+    //reopen query
+    TmpFibQuery.ExecQuery;
+    //read data
+    SearchRes := true;
+    FoundRes := VarArrayCreate([0,i-1], varInteger);
+    i := 0;
+    while not TmpFibQuery.Eof do
+    begin
+      FoundRes[i] := TmpFibQuery.FieldByName('ID_ASK').AsInteger;
+      TmpFibQuery.Next;
+      inc(i);
+    end;
+    TmpFibQuery.Close;
+  end;
+end;
 {-----------export the question answers as a html text then open it as a Word document-----------------}
 procedure TtesteditDM.PrintQuestionAnswersToHTML(filename:string);
 const
