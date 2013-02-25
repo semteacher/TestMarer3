@@ -1949,9 +1949,10 @@ begin
       end;
     finally
       AskGridDBTableView.DataController.Filter.EndUpdate;
+      Messagedlg('Знайдено проблемних питань: '+ inttostr(VarArrayHighBound(FoundRes, 1)+1), mtWarning, [mbOK], 0);
     end;
-  end;
-  Messagedlg('Знайдено проблемних питань: '+ inttostr(VarArrayHighBound(FoundRes, 1)+1), mtWarning, [mbOK], 0);
+  end
+  else Messagedlg('Питань без вказаної правильної відповіді не знайдено', mtWarning, [mbOK], 0);
 end;
 {---------------2013-search question with answer count less than required--------------------}
 procedure TMainForm.SrchAnswerCountNotEqueaCmdExecute(Sender: TObject);
@@ -1979,9 +1980,10 @@ begin
       end;
     finally
       AskGridDBTableView.DataController.Filter.EndUpdate;
+      Messagedlg('Знайдено проблемних питань: '+ inttostr(VarArrayHighBound(FoundRes, 1)+1), mtWarning, [mbOK], 0);
     end;
-  end;
-  Messagedlg('Знайдено проблемних питань: '+ inttostr(VarArrayHighBound(FoundRes, 1)+1), mtWarning, [mbOK], 0);
+  end
+  else Messagedlg('Питань з кількістю відповідей, нем рівною ' +CorrectAnswerCount + ' не знайдено', mtWarning, [mbOK], 0);
 end;
 {=============================================================================================}
 {---------------2012-display report with list question without answer text--------------------}
