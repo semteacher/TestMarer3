@@ -2196,7 +2196,7 @@ begin
   begin
     try
       c := AFileName[i];
-      if (c in ['\', '/', ':', '*', '?', '"', '<', '>', '|']) then AFileName[i]:='-';
+      if (c in ['\', '/', ':', '*', '?', '"', '<', '>', '|', #13, #10]) then AFileName[i]:='-';
     except
       Result := deffilename;
       Exit;
