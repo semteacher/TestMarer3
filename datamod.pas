@@ -2333,7 +2333,8 @@ var
 begin
   SearchRes := false;
   //define query
-  tmpSQL := 'SELECT testasks.id_ask FROM testasks INNER JOIN answers ON (testasks.id_ask= answers.ask_id)';
+  //tmpSQL := 'SELECT testasks.id_ask FROM testasks INNER JOIN answers ON (testasks.id_ask= answers.ask_id)';
+  tmpSQL := 'SELECT testasks.id_ask FROM testasks LEFT JOIN answers ON (testasks.id_ask= answers.ask_id)'; {2014-06-30}
   tmpSQL := tmpSQL + 'WHERE testasks.sciens_id = '+SrcSciensId;
   tmpSQL := tmpSQL + 'GROUP BY testasks.id_ask HAVING count( answers.id_answer ) <> '+CorrAnswCount;
   //set query to FIB component
@@ -2478,8 +2479,8 @@ begin
   mainform.SetProgressBar(0, TestAskDataSet.RecordCountFromSrv, 1, 0);
   //define query
   ///  TmpFibQuery.SQL.Text := 'SELECT testasks.id_ask, testasks.SCIENS_ID, testasks.asktext2, answers.answertext1, answers.weight from TESTASKS inner join answers on (testasks.id_ask = answers.ask_id)WHERE testasks.sciens_ID = '+SciensDataSet.fbn('ID_sciens').AsString+'Order by testasks.id_ask;';
-  if ShowArchived then TmpFibQuery.SQL.Text := 'SELECT testasks.id_ask, testasks.SCIENS_ID, testasks.asktext2, answers.answertext1, answers.weight from TESTASKS inner join answers on (testasks.id_ask = answers.ask_id) WHERE testasks.sciens_ID = '+strSciensID+';'
-  else TmpFibQuery.SQL.Text := 'SELECT testasks.id_ask, testasks.SCIENS_ID, testasks.asktext2, answers.answertext1, answers.weight from TESTASKS inner join answers on (testasks.id_ask = answers.ask_id) WHERE (testasks.sciens_ID = '+strSciensID+')AND(testasks.Archive = 0);'; //did not show archive
+  if ShowArchived then TmpFibQuery.SQL.Text := 'SELECT testasks.id_ask, testasks.SCIENS_ID, testasks.asktext2, answers.answertext1, answers.weight from TESTASKS left join answers on (testasks.id_ask = answers.ask_id) WHERE testasks.sciens_ID = '+strSciensID+';'
+  else TmpFibQuery.SQL.Text := 'SELECT testasks.id_ask, testasks.SCIENS_ID, testasks.asktext2, answers.answertext1, answers.weight from TESTASKS left join answers on (testasks.id_ask = answers.ask_id) WHERE (testasks.sciens_ID = '+strSciensID+')AND(testasks.Archive = 0);'; //did not show archive
   //set query options
   TmpFIBQuery.Options := [qoStartTransaction];
   //execute

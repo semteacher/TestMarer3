@@ -12,7 +12,7 @@ const
   no : integer = 0;
   //application name
   ProductName = 'Редактор Тестових Питань Та Білетів - 3';
-  copyright = 'Copyright 2007-2012. All rigth reserved';
+  copyright = 'Copyright 2007-2014. All rigth reserved';
   mail_text = 'semteacher@mail.ru';
 
   //database default file name

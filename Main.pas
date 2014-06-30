@@ -1538,7 +1538,7 @@ begin
     cursor := crSQLWait;
     try
       //log action
-      testeditDM.write_log('Експорт списку питань з відповідями в систему MOODLE:',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
+      testeditDM.write_log('Експорт списку питань з відповідями в форматі AIKEN (MOODLE):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
       //Improve performance - switch off grid datasets {10-05-2011}
       tmp_ask_ds := AskGridDBTableView.DataController.DataSource;
       AskGridDBTableView.DataController.DataSource := nil;
@@ -2196,7 +2196,7 @@ begin
   begin
     try
       c := AFileName[i];
-      if (c in ['\', '/', ':', '*', '?', '"', '<', '>', '|', #13, #10]) then AFileName[i]:='-';
+      if (c in ['\', '/', ':', '*', '?', '"', '<', '>', '|', ',', '.', #13, #10]) then AFileName[i]:='-';
     except
       Result := deffilename;
       Exit;
