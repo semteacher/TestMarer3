@@ -1654,6 +1654,7 @@ begin
     //get list of questions with answers by sciens_id
     testeditDM.PrepareCurrentSciensAsksList(testeditDM.SciensDataSet.fbn('ID_sciens').AsString, true, ShowArchive);  {2013-02-13}
     //goto first question in list
+    testeditDM.RedyPaperMemTable.Filtered:=false;  {+2014/08/12 - fix 0 question export for admins}
     testeditDM.RedyPaperMemTable.First;
     //set progressbar
     mainform.SetProgressBar(0, testeditDM.RedyPaperMemTable.RecordCount, 1, 0);

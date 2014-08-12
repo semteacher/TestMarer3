@@ -1314,7 +1314,7 @@ procedure TMainForm.PrintAskListWithoutAnswExecute(Sender: TObject);
 var
   tmp_ask_ds, tmp_answ_ds : tdatasource;
   nm0, nm1, nm2, nm3 : string;
-  ShowArchive : boolean;
+  tmp_filter_flag, ShowArchive : boolean;
 begin
   //log action
   testeditDM.write_log('Запит списку питань без вказаних правильних відповідей по модулю (розділу):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
@@ -1335,6 +1335,8 @@ begin
     if Sender=PrintAskListWithoutAnsw2 then ShowAnswers := false;
     if Sender=PrintAskList then ShowAnswers := true;
     testeditDM.PrepareCurrentSciensAsksList(testeditDM.SciensDataSet.fbn('ID_sciens').AsString, ShowAnswers, ShowArchive);  {2012-04-24}
+    tmp_filter_flag := testeditDM.RedyPaperMemTable.Filtered; {+2014/08/12 - fix 0 question export for admins}
+    testeditDM.RedyPaperMemTable.Filtered:=false;  {+2014/08/12 - fix 0 question export for admins}
     //load report template
     if (Sender=PrintAskListWithoutAnsw2) or (Sender=PrintAskList) then testeditDM.AskListReport.LoadFromFile(ExtractFilePath(Application.ExeName)+Rep_AskListWithoutAnswers2,true)
     else  testeditDM.AskListReport.LoadFromFile(ExtractFilePath(Application.ExeName)+Rep_AskListWithoutAnswers,true);
@@ -1359,6 +1361,7 @@ begin
     cursor := crDefault;
     //enable dcWaitEndMasterScroll - options
     testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen, dcWaitEndMasterScroll];
+    testeditDM.RedyPaperMemTable.Filtered:=tmp_filter_flag;  {+2014/08/12 - fix 0 question export for admins}
   end;
 end;
 {========WORKING WITH POP-UP MENU FOR ASKS LIST============}
@@ -2083,7 +2086,7 @@ var
   tmp_ask_ds, tmp_answ_ds : tdatasource;
   nm0, nm1, nm2, nm3, initfolder, batchscienslisfoder, batchscienslistfilename : string;
   batchscienslist : tstringlist;
-  loadsuccesful, repbuildsuccessful, repexportsucessful, ShowAnswers, ShowArchive : boolean;
+  tmp_filter_flag, loadsuccesful, repbuildsuccessful, repexportsucessful, ShowAnswers, ShowArchive : boolean;
 begin
   if OpenDialogTXT.Execute then
   begin
@@ -2118,6 +2121,8 @@ begin
           //get archive export option
           if MessageDlg('Експортувати також і архівні питання?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then ShowArchive := true
           else ShowArchive := false;
+          tmp_filter_flag := testeditDM.RedyPaperMemTable.Filtered; {+2014/08/12 - fix 0 question export for admins}
+          testeditDM.RedyPaperMemTable.Filtered:=false;  {+2014/08/12 - fix 0 question export for admins}
           //process all sciens ID
           for i:=0 to batchscienslist.Count-1 do
           begin
@@ -2162,6 +2167,7 @@ begin
         testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen, dcWaitEndMasterScroll];
         //destroy local variables
         batchscienslist.Free;
+        testeditDM.RedyPaperMemTable.Filtered:=tmp_filter_flag;  {+2014/08/12 - fix 0 question export for admins}
       end;
     end;
   end;
