@@ -518,7 +518,14 @@ begin //disable controls
               TpFIBDataSet(ModulesDBGridEh.DataSource.DataSet).AllowedUpdateKinds := [ukModify, ukInsert, ukDelete	];
               AllowExportPapersFR := false;
               UpdateAskcountCmd.Enabled := false; {4/03/2011}
+                if basevar.Settings.LUserName<>'SYSDBA' then   {+18/12/2014 - selskiy want this}
+                begin
+                  AnswRepSB.visible := false;
+                  Answer2MSWord.Visible := false;
+                  Answer2Print.Visible := false;
+                end;
             end;
+
   //set department dataset to current department;
   if testeditDM.TestDB.Connected then testeditDM.DepartDataSet.Locate('DEPID',VarArrayOf([basevar.Settings.LUserDepID]),[]);
 end;
@@ -1195,7 +1202,7 @@ begin
     testeditDM.RedyPaperMemTable.Filter := tmpfilter;
     testeditDM.RedyPaperMemTable.Filtered := true;
   end;
-  testeditDM.write_log('Успішно відкрито вікно FastReport для білету №:',PapersDBGridEh.Columns[0].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(PapersDBGridEh.Columns[0].DisplayText));
+  testeditDM.write_log('Успішно відкрито вікно FastReport для білету №:',PapersDBGridEh.Columns[0].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, Strtoint(PapersDBGridEh.Columns[0].DisplayText));
 end;
 {---------------check if paper print prepared--------------}
 procedure TMainForm.CheckPreparePaper(showansw:boolean);
