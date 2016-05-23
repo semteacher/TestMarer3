@@ -403,7 +403,7 @@ type
     SysLogDataSetLOG_DATE: TFIBDateTimeField;
     SysLogDataSetuser_name_search: TStringField;
     SysLogDataSetLOG_USERDEPID: TFIBIntegerField;
-    SysLogDataSetLOG_SUBJECTID2: TFIBSmallIntField;
+    SysLogDataSetLOG_SUBJECTID2: TFIBIntegerField;
     frxSimpleTextExport1: TfrxSimpleTextExport;
     frxXMLExport1: TfrxXMLExport;
     TestModDataSetID_TESTSECTION: TFIBIntegerField;
@@ -1611,7 +1611,8 @@ begin
     mainform.ExpAnswers.Enabled := true;
     mainform.ExpOffModuleWord.Enabled := true;    
     mainform.PrintGB.Enabled := true;
-    mainform.PrintOffPaperWithAnsw.Enabled := true;
+    //mainform.PrintOffPaperWithAnsw.Enabled := true;
+    mainform.PrintOffPaperWithAnsw.Enabled := mainform.AnswRepSB.Enabled; {18/12/2014}
     mainform.ClonePaperCmd.Enabled := true;
     mainform.PrintOffPaperFReport.Enabled := true;
     mainform.ExpAnswersWord.Enabled := true;    

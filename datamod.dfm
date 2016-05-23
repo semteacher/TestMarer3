@@ -3216,6 +3216,7 @@ object testeditDM: TtesteditDM
   object AskListReport: TfrxReport
     Version = '4.10.5'
     DotMatrixReport = False
+    EngineOptions.DoublePass = True
     IniFile = '\Software\Fast Reports'
     PreviewOptions.AllowEdit = False
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3223,21 +3224,34 @@ object testeditDM: TtesteditDM
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 9
     ReportOptions.CreateDate = 40125.744610821800000000
-    ReportOptions.LastChange = 41052.433971354160000000
+    ReportOptions.LastChange = 40887.764892210600000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
-      'procedure MasterData1OnBeforePrint(Sender: TfrxComponent);'
+      'procedure GroupHeader2OnBeforePrint(Sender: TfrxComponent);'
       'begin'
-      '  if <R_OffAsksDS."RecPrefix"> = '#39#39' then'
+      
+        '  if CheckBox1.state = cbChecked then GroupHeader2.startNewPage ' +
+        ':= true'
+      '  else GroupHeader2.startNewPage := false;'
+      '  if ShowVarNumCheckBox.state = cbChecked then'
       '  begin'
-      '    Memo1.DataField := '#39'RecPrefix2'#39';'
-      ' //   Memo1.Alignment := frtaLeft;'
+      '    memo4.visible := true;'
+      '    memo5.visible := true;                  '
       '  end'
       '  else'
       '  begin'
-      '    Memo1.DataField := '#39'RecPrefix'#39';'
-      '//    Memo1.Alignment := frtaRight;'
-      '  end;'
+      '    memo4.visible := false;'
+      '    memo5.visible := false;      '
+      '  end;            '
+      'end;'
+      ''
+      ''
+      'procedure ReportSummary1OnBeforePrint(Sender: TfrxComponent);'
+      'begin'
+      
+        '  if (AddEmptyPage.state = cbChecked)and((get('#39'Page'#39') mod 2) =1)' +
+        ' then ReportSummary1.startNewPage := true'
+      '  else ReportSummary1.startNewPage := false;  '
       'end;'
       ''
       'begin'
@@ -3251,8 +3265,16 @@ object testeditDM: TtesteditDM
         DataSetName = 'R_OffAsksDS'
       end
       item
-        DataSet = Rep_SciensDS
-        DataSetName = 'Rep_SciensDS'
+        DataSet = R_OffPaperDS
+        DataSetName = 'R_OffPaperDS'
+      end
+      item
+        DataSet = R_SubjDS
+        DataSetName = 'R_SubjDS'
+      end
+      item
+        DataSet = R_SubjTestDS
+        DataSetName = 'R_SubjTestDS'
       end>
     Variables = <>
     Style = <>
@@ -3278,13 +3300,225 @@ object testeditDM: TtesteditDM
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      MirrorMargins = True
       Duplex = dmVertical
-      EndlessHeight = True
-      object MasterData1: TfrxMasterData
-        Height = 18.897637800000000000
+      object ReportTitle1: TfrxReportTitle
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Times New Roman'
+        Font.Style = [fsBold]
+        Height = 190.866265000000000000
+        ParentFont = False
         Top = 18.897650000000000000
         Width = 699.213050000000000000
-        OnBeforePrint = 'MasterData1OnBeforePrint'
+        Stretched = True
+        object R_SubjDSFACULTY: TfrxMemoView
+          Align = baWidth
+          ShiftMode = smWhenOverlapped
+          Left = 340.157700000000000000
+          Top = 129.165430000000000000
+          Width = 359.055350000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'FACULTY'
+          DataSet = R_SubjDS
+          DataSetName = 'R_SubjDS'
+          GapX = 4.000000000000000000
+          Memo.UTF8 = (
+            '[R_SubjDS."FACULTY"]')
+        end
+        object R_SubjDSSEMESTR: TfrxMemoView
+          ShiftMode = smWhenOverlapped
+          Left = 345.826995000000000000
+          Top = 148.063080000000000000
+          Width = 111.118182000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'SEMESTR'
+          DataSet = R_SubjDS
+          DataSetName = 'R_SubjDS'
+          Memo.UTF8 = (
+            '[R_SubjDS."SEMESTR"]')
+        end
+        object R_OffPaperDSID_OFFEXAM: TfrxMemoView
+          ShiftMode = smWhenOverlapped
+          Left = 345.071089000000000000
+          Top = 166.960730000000000000
+          Width = 112.252041000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'ID_OFFEXAM'
+          DataSet = R_OffPaperDS
+          DataSetName = 'R_OffPaperDS'
+          Memo.UTF8 = (
+            '[R_OffPaperDS."ID_OFFEXAM"]')
+        end
+        object R_SubjTestDSperson_tit_srch: TfrxMemoView
+          Align = baWidth
+          ShiftMode = smWhenOverlapped
+          Top = 22.677180000000000000
+          Width = 699.213050000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'person_tit_srch'
+          DataSet = R_SubjTestDS
+          DataSetName = 'R_SubjTestDS'
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8 = (
+            '[R_SubjTestDS."person_tit_srch"]')
+          ParentFont = False
+        end
+        object R_SubjTestDSsign_tit_srch: TfrxMemoView
+          Align = baCenter
+          ShiftMode = smWhenOverlapped
+          Left = 230.551330000000000000
+          Top = 45.574830000000010000
+          Width = 238.110390000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'sign_tit_srch'
+          DataSet = R_SubjTestDS
+          DataSetName = 'R_SubjTestDS'
+          HAlign = haCenter
+          Memo.UTF8 = (
+            '[R_SubjTestDS."sign_tit_srch"]')
+        end
+        object R_SubjTestDSgroup_tit_srch: TfrxMemoView
+          Align = baCenter
+          ShiftMode = smWhenOverlapped
+          Left = 230.551330000000000000
+          Top = 68.472480000000000000
+          Width = 238.110390000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'group_tit_srch'
+          DataSet = R_SubjTestDS
+          DataSetName = 'R_SubjTestDS'
+          HAlign = haCenter
+          Memo.UTF8 = (
+            '[R_SubjTestDS."group_tit_srch"]')
+        end
+        object R_SubjTestDSspec_tit_srch: TfrxMemoView
+          Align = baWidth
+          ShiftMode = smWhenOverlapped
+          Top = 91.370130000000000000
+          Width = 699.213050000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'spec_tit_srch'
+          DataSet = R_SubjTestDS
+          DataSetName = 'R_SubjTestDS'
+          HAlign = haCenter
+          Memo.UTF8 = (
+            '[R_SubjTestDS."spec_tit_srch"]')
+        end
+        object R_SubjTestDSsubj_tit_srch: TfrxMemoView
+          ShiftMode = smWhenOverlapped
+          Top = 110.267780000000000000
+          Width = 340.157700000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'subj_tit_srch'
+          DataSet = R_SubjTestDS
+          DataSetName = 'R_SubjTestDS'
+          HAlign = haRight
+          Memo.UTF8 = (
+            '[R_SubjTestDS."subj_tit_srch"]')
+        end
+        object R_SubjDSSUBJNAME: TfrxMemoView
+          Align = baWidth
+          ShiftMode = smWhenOverlapped
+          Left = 340.157700000000000000
+          Top = 110.267780000000000000
+          Width = 359.055350000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'SUBJNAME'
+          DataSet = R_SubjDS
+          DataSetName = 'R_SubjDS'
+          GapX = 4.000000000000000000
+          Memo.UTF8 = (
+            '[R_SubjDS."SUBJNAME"]')
+        end
+        object R_SubjTestDSfaculty_tit_srch: TfrxMemoView
+          Align = baLeft
+          ShiftMode = smWhenOverlapped
+          Top = 129.165430000000000000
+          Width = 340.157700000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'faculty_tit_srch'
+          DataSet = R_SubjTestDS
+          DataSetName = 'R_SubjTestDS'
+          HAlign = haRight
+          Memo.UTF8 = (
+            '[R_SubjTestDS."faculty_tit_srch"]')
+        end
+        object R_SubjTestDSsemestr_tit_srch: TfrxMemoView
+          ShiftMode = smWhenOverlapped
+          Left = 102.047310000000000000
+          Top = 148.063080000000000000
+          Width = 238.110390000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'semestr_tit_srch'
+          DataSet = R_SubjTestDS
+          DataSetName = 'R_SubjTestDS'
+          HAlign = haRight
+          Memo.UTF8 = (
+            '[R_SubjTestDS."semestr_tit_srch"]')
+        end
+        object Memo3: TfrxMemoView
+          Align = baWidth
+          Width = 699.213050000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftBottom]
+          Memo.UTF8 = (
+            '[Date]')
+          ParentFont = False
+        end
+        object VariantTitle: TfrxMemoView
+          Left = 188.976500000000000000
+          Top = 167.189085000000000000
+          Width = 151.181200000000000000
+          Height = 18.897637800000000000
+          ShowHint = False
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        Height = 18.897637800000000000
+        Top = 381.732530000000000000
+        Width = 699.213050000000000000
         DataSet = R_OffAsksDS
         DataSetName = 'R_OffAsksDS'
         RowCount = 0
@@ -3292,8 +3526,8 @@ object testeditDM: TtesteditDM
         object Rich1: TfrxRichView
           Align = baWidth
           ShiftMode = smWhenOverlapped
-          Left = 47.244103030000000000
-          Width = 651.968946969999900000
+          Left = 62.362204720000000000
+          Width = 636.850845279999900000
           Height = 18.897637800000000000
           ShowHint = False
           StretchMode = smActualHeight
@@ -3314,10 +3548,10 @@ object testeditDM: TtesteditDM
         end
         object Memo1: TfrxMemoView
           Align = baLeft
-          Width = 47.244103030000000000
+          Width = 34.015748030000000000
           Height = 18.897650000000000000
           ShowHint = False
-          StretchMode = smMaxHeight
+          DataField = 'RecPrefix'
           DataSet = R_OffAsksDS
           DataSetName = 'R_OffAsksDS'
           Font.Charset = RUSSIAN_CHARSET
@@ -3327,6 +3561,213 @@ object testeditDM: TtesteditDM
           Font.Style = []
           GapX = 1.000000000000000000
           LineSpacing = 1.000000000000000000
+          Memo.UTF8 = (
+            '[R_OffAsksDS."RecPrefix"]')
+          ParentFont = False
+        end
+        object R_OffAsksDSRecprefix2: TfrxMemoView
+          Align = baLeft
+          Left = 34.015748030000000000
+          Width = 28.346456690000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'Recprefix2'
+          DataSet = R_OffAsksDS
+          DataSetName = 'R_OffAsksDS'
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          GapX = 1.000000000000000000
+          HAlign = haCenter
+          LineSpacing = 1.000000000000000000
+          Memo.UTF8 = (
+            '[R_OffAsksDS."Recprefix2"]')
+          ParentFont = False
+        end
+      end
+      object GroupHeader1: TfrxGroupHeader
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Times New Roman'
+        Font.Style = []
+        ParentFont = False
+        Top = 359.055350000000000000
+        Width = 699.213050000000000000
+        Condition = 'R_OffAsksDS."RecPrefix"'
+        Stretched = True
+      end
+      object GroupHeader2: TfrxGroupHeader
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Times New Roman'
+        Font.Style = [fsBold]
+        Height = 18.897650000000000000
+        ParentFont = False
+        Top = 317.480520000000000000
+        Width = 699.213050000000000000
+        OnBeforePrint = 'GroupHeader2OnBeforePrint'
+        Condition = 'R_OffAsksDS."ID_ASKLIST"'
+        Stretched = True
+        object R_OffAsksDSTestModTitle: TfrxMemoView
+          Align = baWidth
+          ShiftMode = smWhenOverlapped
+          Left = 34.236240000000000000
+          Width = 664.976810000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'TestModTitle'
+          DataSet = R_OffAsksDS
+          DataSetName = 'R_OffAsksDS'
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftBottom]
+          GapX = 1.000000000000000000
+          Memo.UTF8 = (
+            '[R_OffAsksDS."TestModTitle"]')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Align = baBottom
+          Left = 0.220470000000000000
+          Width = 34.015770000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftBottom]
+          GapX = 1.000000000000000000
+          Memo.UTF8 = (
+            '[Line#].')
+          ParentFont = False
+        end
+        object Line1: TfrxLineView
+          Align = baWidth
+          Width = 699.213050000000000000
+          ShowHint = False
+          Frame.Typ = [ftTop]
+        end
+      end
+      object PageFooter1: TfrxPageFooter
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Times New Roman'
+        Font.Style = []
+        Height = 18.897650000000000000
+        ParentFont = False
+        Top = 498.897960000000000000
+        Width = 699.213050000000000000
+        object SysMemo1: TfrxSysMemoView
+          Align = baCenter
+          Left = 302.362400000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8 = (
+            '[PAGE#]')
+          ParentFont = False
+        end
+      end
+      object PageHeader1: TfrxPageHeader
+        Height = 20.787415000000000000
+        Top = 234.330860000000000000
+        Width = 699.213050000000000000
+        PrintOnFirstPage = False
+        object Memo4: TfrxMemoView
+          ShiftMode = smWhenOverlapped
+          Left = 565.039735000000000000
+          Width = 133.039456000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'ID_OFFEXAM'
+          DataSet = R_OffPaperDS
+          DataSetName = 'R_OffPaperDS'
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Memo.UTF8 = (
+            '[R_OffPaperDS."ID_OFFEXAM"]')
+          ParentFont = False
+        end
+        object Date: TfrxMemoView
+          Align = baWidth
+          Width = 340.157700000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8 = (
+            '[Date]')
+          ParentFont = False
+        end
+        object Memo5: TfrxMemoView
+          ShiftMode = smWhenOverlapped
+          Left = 340.157700000000000000
+          Width = 224.882035000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          StretchMode = smActualHeight
+          DataField = 'VAR_NAME'
+          DataSet = R_OffPaperDS
+          DataSetName = 'R_OffPaperDS'
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8 = (
+            '[R_OffPaperDS."VAR_NAME"]')
+          ParentFont = False
+        end
+        object Line2: TfrxLineView
+          Top = 18.897650000000000000
+          Width = 699.213050000000000000
+          ShowHint = False
+          Frame.Typ = [ftTop]
+        end
+      end
+      object ReportSummary1: TfrxReportSummary
+        Height = 15.118120000000000000
+        Top = 461.102660000000000000
+        Width = 699.213050000000000000
+        OnBeforePrint = 'ReportSummary1OnBeforePrint'
+        object Memo6: TfrxMemoView
+          Align = baLeft
+          Width = 94.488250000000000000
+          Height = 13.228355000000000000
+          ShowHint = False
+          Font.Charset = RUSSIAN_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Memo.UTF8 = (
+            '-')
           ParentFont = False
         end
       end
@@ -3344,6 +3785,44 @@ object testeditDM: TtesteditDM
       Top = 150.000000000000000000
       Width = 300.000000000000000000
       ClientWidth = 292.000000000000000000
+      object CheckBox1: TfrxCheckBoxControl
+        Left = 8.000000000000000000
+        Top = 12.000000000000000000
+        Width = 253.000000000000000000
+        Height = 17.000000000000000000
+        ShowHint = True
+        Caption = #1056#1086#1079#1087#1086#1095#1080#1085#1072#1090#1080' '#1082#1086#1078#1077#1085' '#1088#1086#1079#1076#1110#1083' '#1079' '#1085#1086#1074#1086#1111' '#1089#1090#1086#1088#1110#1085#1082#1080
+        Color = clBtnFace
+      end
+      object Button1: TfrxButtonControl
+        Left = 112.000000000000000000
+        Top = 88.000000000000000000
+        Width = 75.000000000000000000
+        Height = 25.000000000000000000
+        ShowHint = True
+        Caption = 'OK'
+        ModalResult = 1
+      end
+      object ShowVarNumCheckBox: TfrxCheckBoxControl
+        Left = 8.000000000000000000
+        Top = 36.000000000000000000
+        Width = 269.000000000000000000
+        Height = 17.000000000000000000
+        ShowHint = True
+        Caption = #1053#1086#1084#1077#1088' '#1074#1072#1088#1110#1072#1085#1090#1091' '#1074' '#1082#1086#1083#1086#1085#1090#1080#1090#1091#1083#1110' '#1082#1086#1078#1085#1086#1111' '#1089#1090#1086#1088#1110#1085#1082#1080
+        Color = clBtnFace
+      end
+      object AddEmptyPage: TfrxCheckBoxControl
+        Left = 8.000000000000000000
+        Top = 60.000000000000000000
+        Width = 277.000000000000000000
+        Height = 17.000000000000000000
+        ShowHint = True
+        Caption = #1044#1086#1073#1072#1074#1083#1103#1090#1080' '#1087#1086#1088#1086#1078#1085#1102' '#1089#1090#1086#1088#1110#1085#1082#1091' '#1076#1083#1103' '#1087#1072#1088#1085#1086#1111' '#1082#1110#1083#1100#1082#1086#1089#1090#1110
+        Checked = True
+        State = cbChecked
+        Color = clBtnFace
+      end
     end
   end
   object AskRepDesigner: TfrxDesigner
@@ -3571,7 +4050,7 @@ object testeditDM: TtesteditDM
       DisplayLabel = #1050#1086#1076' '#1087#1110#1076#1088#1086#1079#1076#1110#1083#1091
       FieldName = 'LOG_USERDEPID'
     end
-    object SysLogDataSetLOG_SUBJECTID2: TFIBSmallIntField
+    object SysLogDataSetLOG_SUBJECTID2: TFIBIntegerField
       DisplayLabel = #1050#1086#1076' '#1086#1073#1108#1082#1090#1091
       FieldName = 'LOG_SUBJECTID'
     end
