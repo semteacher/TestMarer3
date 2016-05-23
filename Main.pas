@@ -518,12 +518,12 @@ begin //disable controls
               TpFIBDataSet(ModulesDBGridEh.DataSource.DataSet).AllowedUpdateKinds := [ukModify, ukInsert, ukDelete	];
               AllowExportPapersFR := false;
               UpdateAskcountCmd.Enabled := false; {4/03/2011}
-                if basevar.Settings.LUserName<>'SYSDBA' then   {+18/12/2014 - selskiy want this}
-                begin
-                  AnswRepSB.visible := false;
-                  Answer2MSWord.Visible := false;
-                  Answer2Print.Visible := false;
-                end;
+              //  if basevar.Settings.LUserName<>'SYSDBA' then   {+18/12/2014 - selskiy want this}
+              //  begin
+              //    AnswRepSB.visible := false;
+              //    Answer2MSWord.Visible := false;
+              //    Answer2Print.Visible := false;
+              //  end;
             end;
 
   //set department dataset to current department;
