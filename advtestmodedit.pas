@@ -152,19 +152,25 @@ begin
   testeditDM.OpenFullSciensDataSet; {+17-06-2007}
   if testeditDM.OffPapersDataSet.IsEmpty = false then
   begin  //disable controls
-    TestSect2sciensGB.Enabled := false;
+    //TestSect2sciensGB.Enabled := false;
     ApprendModuleSBut.Enabled := false;
     AddModuleSBut.Enabled := false;
+    Delsect2sciensSB.Enabled := false;
     TestModDBNavigator.VisibleButtons := [nbFirst, nbprior, nbNext, nbLast, nbRefresh];
+    Sect2SciensDBNav.VisibleButtons := [nbFirst, nbprior, nbNext, nbLast, nbRefresh];
     TestModDBGridEh.Columns[2].ReadOnly := true;
+    Sect2SciensDBGridEh.Columns[3].ReadOnly := true;
   end
   else
   begin  //enable controls
-    TestSect2sciensGB.Enabled := true;
+    //TestSect2sciensGB.Enabled := true;
     ApprendModuleSBut.Enabled := true;
     AddModuleSBut.Enabled := true;
+    Delsect2sciensSB.Enabled := true;
     TestModDBNavigator.VisibleButtons := [nbFirst, nbprior, nbNext, nbLast, nbDelete, nbEdit, nbPost, nbRefresh];
+    Sect2SciensDBNav.VisibleButtons := [nbFirst, nbprior, nbNext, nbLast, nbPost, nbRefresh];
     TestModDBGridEh.Columns[2].ReadOnly := false;
+    Sect2SciensDBGridEh.Columns[3].ReadOnly := false;
   end;
 end;
 {-----------when exit - clean filter-------------------------}

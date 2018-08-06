@@ -1313,7 +1313,7 @@ begin
       sct_end := j;
       for h := sct_start to sct_end do
       begin  {3}
-        if memstr.Strings[h]<>'' then tmp_question.Append(memstr.Strings[h]);
+        if length(trim(memstr.Strings[h])) > 3 then tmp_question.Append(trim(memstr.Strings[h]));    //2018 - clean whitespaces
       end;   {/3}
       //process question text
       testeditdm.TestAskDataSet.Append;//append record
@@ -1326,8 +1326,10 @@ begin
       //process answer position
 ///      tmp_str := copy(tmp_question.Strings[tmp_question.Count-1],length(AnswTempl1)+1,1 );
 ///      right_answ_num := ord(tmp_str[1])-(ord('A')-1);//ord('A')=65
-      h := length(AnswTempl1);
+
+//      h := length(AnswTempl1);
       tmp_str := tmp_question.Strings[tmp_question.Count-1];
+      h := pos(AnswTempl1, tmp_str) + length(AnswTempl1)-1;
       repeat
         inc(h);
       until tmp_str[h] <> ' ';

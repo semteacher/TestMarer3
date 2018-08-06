@@ -2,8 +2,8 @@ object testeditDM: TtesteditDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 301
-  Top = 92
+  Left = 406
+  Top = 124
   Height = 570
   Width = 800
   object TestDB: TpFIBDatabase
