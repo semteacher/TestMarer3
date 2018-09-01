@@ -36,6 +36,7 @@ begin
   Version1.Caption := 'Версія: '+CurrFileVersion.FileVersion;
   Copyright1.Caption := copyright;
   mailURLLabel.URLCommand := mail_text;
+  mailURLLabel.Caption := mail_text;
 end;
 
 end.

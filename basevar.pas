@@ -12,8 +12,8 @@ const
   no : integer = 0;
   //application name
   ProductName = 'Редактор Тестових Питань Та Білетів - 3';
-  copyright = 'Copyright 2007-2014. All rigth reserved';
-  mail_text = 'semteacher@mail.ru';
+  copyright = 'Copyright 2007-2018. All rigth reserved';
+  mail_text = 'semteacher@tdmu.edu.ua';
 
   //database default file name
   dbfilename = 'TDMU_TEST.GDB';
