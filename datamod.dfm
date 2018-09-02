@@ -2,9 +2,10 @@ object testeditDM: TtesteditDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 472
-  Top = 208
+  Left = 366
+  Top = 114
   Height = 570
+  VerticalOffset = 46
   Width = 800
   object TestDB: TpFIBDatabase
     DBName = 'D:\TEST_DB\TDMU_TEST.GDB'

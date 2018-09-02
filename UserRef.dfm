@@ -240,7 +240,13 @@ object UserRefForm: TUserRefForm
         Align = alClient
         DefaultColWidth = 80
         FixedCols = 0
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing]
+        ParentFont = False
         TabOrder = 0
       end
     end

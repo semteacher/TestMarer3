@@ -43,7 +43,7 @@ var
 
 implementation
 
-uses DB, datamod, basevar;
+uses DB, datamod, basevar, pFIBProps;
 {$R *.dfm}
 {====================================================}
 {----------Set sorting option for Users List---------}
@@ -151,17 +151,24 @@ begin
     if userexist then
     begin
       //reopen security tool
-      pFIBSecurityService1.Active := True;
-      pFIBSecurityService1.UserName := tmpusername;
+      //pFIBSecurityService1.Active := True;
+      //pFIBSecurityService1.UserName := tmpusername; //replacer since Firebird 2.5 with SQL!
       try
         sucess := true; //default - delete OK
-        pFIBSecurityService1.DeleteUser;
+        //pFIBSecurityService1.DeleteUser; //replacer since Firebird 2.5 with SQL!
+        //testeditDM.TmpFIBQuery.Options := [qoStartTransaction];
+        testeditDM.TmpFIBQuery.SQL.Text := 'DROP USER ' + tmpusername + ';';
+        testeditDM.TmpFIBQuery.Prepare;
+        testeditDM.TmpFIBQuery.ExecQuery;
+        testeditDM.TmpFIBQuery.Close;
+        //if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Commit;
       except
         sucess := false; //error - not deleted
+        //if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Rollback;
         MessageDlg('Помилка видалення коритувача з серверу СУРБД Firebird!', mtError, [mbOk], 0);
       end;
       //close security tool
-      pFIBSecurityService1.Active := false;
+      //pFIBSecurityService1.Active := false; //replacer since Firebird 2.5 with SQL!
     end;
     if sucess or not(userexist) then LibUserDBNavigator.BtnClick(nbDelete); //delete user record in database
     //show users from DB server
@@ -218,6 +225,7 @@ end;
 procedure TUserRefForm.User2FirebirdSBClick(Sender: TObject);
 var
   tmpsqltext, tmpusername, tmpuserpass, tmpfirstname, tmplastname, tmpmiddlename, tmpsqlrole, tmpoldsqlrole: string;
+  CreateUserSQLText, EditUserSQLText: string;
   userexist, usersuccess: boolean;
   i : integer;
 begin
@@ -229,6 +237,7 @@ begin
   tmpuserpass := passkey.ShowStr(LibUserDBGridEh.DataSource.Dataset.FieldByName('USERPASS').AsString);{31/03/2010}
   tmpsqlrole := LibUserDBGridEh.DataSource.Dataset.FieldByName('userrole_search').AsString;
   userexist := false; //default - not exist
+
   //get firebird user data
   pFIBSecurityService1.Active := True;
   pFIBSecurityService1.DisplayUsers;
@@ -249,50 +258,89 @@ begin
   pFIBSecurityService1.SQlRole := tmpsqlrole;
 
   usersuccess := true;
+  //testeditDM.TmpFIBQuery.Options := [qoStartTransaction];
   if userexist then
   begin
     try
-      pFIBSecurityService1.ModifyUser; //modify user data on the DB server
+      //modify user data on the DB server
+      //pFIBSecurityService1.ModifyUser; //replacer since Firebird 2.5 with SQL!
+      EditUserSQLText := 'ALTER USER ' + tmpusername + ' PASSWORD '''+ tmpuserpass +'''';
+      EditUserSQLText := EditUserSQLText + ' FIRSTNAME ''' + tmpfirstname + '''';
+      EditUserSQLText := EditUserSQLText + ' MIDDLENAME ''' + tmpmiddlename + '''';
+      EditUserSQLText := EditUserSQLText + ' LASTNAME ''' + tmplastname + ''';';
+//MessageDlg(EditUserSQLText, mtWarning	, [mbOk], 0);
+      testeditDM.TmpFIBQuery.SQL.Text := EditUserSQLText;
+      testeditDM.TmpFIBQuery.Prepare;
+      testeditDM.TmpFIBQuery.ExecQuery;
+      testeditDM.TmpFIBQuery.Close;
+      if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Commit;
     except
       usersuccess := false;
-      MessageDlg('Помилка редагування даних користувача на сервері СУРБД Firebird', mtError, [mbOk], 0);
+      if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Rollback;
+      MessageDlg('Помилка редагування даних користувача ' + tmpusername + ' на сервері СУРБД Firebird', mtError, [mbOk], 0);
     end;
     if usersuccess then
     begin  //assign user to role
       if tmpsqlrole <> settings.UserOldSQLRole then
       begin
         //REVOKE <имя роли> FROM <имя пользователя>
-        testeditDM.TmpFIBQuery.SQL.Text := 'REVOKE '+settings.UserOldSQLRole+' FROM '+ tmpusername;
-        testeditDM.TmpFIBQuery.Prepare;
-        testeditDM.TmpFIBQuery.ExecQuery;
-        testeditDM.TmpFIBQuery.Close;
+        try
+          testeditDM.TmpFIBQuery.SQL.Text := 'REVOKE '+settings.UserOldSQLRole+' FROM '+ tmpusername;
+          testeditDM.TmpFIBQuery.Prepare;
+          testeditDM.TmpFIBQuery.ExecQuery;
+          testeditDM.TmpFIBQuery.Close;
+          //if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Commit;
+        except
+         //if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Rollback;
+         MessageDlg('Помилка видалення ролі '+settings.UserOldSQLRole+' користувача '+tmpusername+' на сервері СУРБД Firebird', mtError, [mbOk], 0);
+        end;
         //TODO: run this SQL query - "grant MyRole to NewUser"
         if tmpsqlrole <> test_admin then tmpsqltext := 'GRANT '+tmpsqlrole+' TO '+ tmpusername
         else tmpsqltext := 'GRANT '+test_admin+','+test_operator+','+dep_admin+','+dep_teacher+' TO '+ tmpusername + ' WITH ADMIN OPTION';
-        testeditDM.TmpFIBQuery.SQL.Text := tmpsqltext;
-        testeditDM.TmpFIBQuery.Prepare;
-        testeditDM.TmpFIBQuery.ExecQuery;
-        testeditDM.TmpFIBQuery.Close;
+        try
+          testeditDM.TmpFIBQuery.SQL.Text := tmpsqltext;
+          testeditDM.TmpFIBQuery.Prepare;
+          testeditDM.TmpFIBQuery.ExecQuery;
+          testeditDM.TmpFIBQuery.Close;
+        except
+         //if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Rollback;
+         MessageDlg('Помилка присвоєнння ролі: '+tmpsqltext+' на сервері СУРБД Firebird', mtError, [mbOk], 0);
+        end;
       end;
     end;
   end
   else
   begin
     try
-      pFIBSecurityService1.AddUser; //add new user to DB server
+      //add new user to DB server
+      //pFIBSecurityService1.AddUser; //replacer since Firebird 2.5 with SQL!
+      CreateUserSQLText := 'CREATE USER ' + tmpusername + ' PASSWORD '''+ tmpuserpass +'''';
+      CreateUserSQLText := CreateUserSQLText + ' FIRSTNAME ''' + tmpfirstname + '''';
+      CreateUserSQLText := CreateUserSQLText + ' MIDDLENAME ''' + tmpmiddlename + '''';
+      CreateUserSQLText := CreateUserSQLText + ' LASTNAME ''' + tmplastname + ''';';
+//MessageDlg(CreateUserSQLText, mtWarning	, [mbOk], 0);
+      testeditDM.TmpFIBQuery.SQL.Text := CreateUserSQLText;
+      testeditDM.TmpFIBQuery.Prepare;
+      testeditDM.TmpFIBQuery.ExecQuery;
+      testeditDM.TmpFIBQuery.Close;
     except
       usersuccess := false;
-      MessageDlg('Помилка реєстрації нового користувача на сервері СУРБД Firebird', mtError, [mbOk], 0);
+      MessageDlg('Помилка реєстрації користувача '+tmpusername+' на сервері СУРБД Firebird', mtError, [mbOk], 0);
     end;
     if usersuccess then
     begin  //assign user to role
       //TODO: run this SQL query - "grant MyRole to NewUser"
       if tmpsqlrole <> test_admin then tmpsqltext := 'GRANT '+tmpsqlrole+' TO '+ tmpusername
       else tmpsqltext := 'GRANT '+test_admin+','+test_operator+','+dep_admin+','+dep_teacher+' TO '+ tmpusername + ' WITH ADMIN OPTION';
-      testeditDM.TmpFIBQuery.SQL.Text := tmpsqltext;
-      testeditDM.TmpFIBQuery.Prepare;
-      testeditDM.TmpFIBQuery.ExecQuery;
-      testeditDM.TmpFIBQuery.Close;
+      try
+        testeditDM.TmpFIBQuery.SQL.Text := tmpsqltext;
+        testeditDM.TmpFIBQuery.Prepare;
+        testeditDM.TmpFIBQuery.ExecQuery;
+        testeditDM.TmpFIBQuery.Close;
+      except
+         //if testeditDM.TmpFIBQuery.Transaction.Active then testeditDM.TmpFIBQuery.Transaction.Rollback;
+         MessageDlg('Помилка присвоєнння ролі: '+tmpsqltext+' на сервері СУРБД Firebird', mtError, [mbOk], 0);
+      end;
     end;
   end;
 
@@ -327,6 +375,7 @@ begin
     pFIBSecurityService1.UserInfo[i].MiddleName;
     StringGrid1.Cells[3, i + 1] :=
     pFIBSecurityService1.UserInfo[i].LastName;
+//MessageDlg(pFIBSecurityService1.UserInfo[i].LastName, mtWarning	, [mbOk], 0);
     StringGrid1.RowCount := StringGrid1.RowCount + 1;
   end;
   StringGrid1.RowCount := StringGrid1.RowCount - 1;
