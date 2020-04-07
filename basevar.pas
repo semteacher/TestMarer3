@@ -47,6 +47,7 @@ const
   Rep_AskListWithoutAnswers  :string = 'Reports\ask_list_without_answers_noimg.fr3';//did not support deparate image field
   Rep_AskListWithoutAnswers2 :string = 'Reports\ask_list_without_answers_noimg_mt.fr3';//did not support deparate image field
   Rep_AskListWithAnswersBatch:string = 'Reports\ask_list_with_answers_noimg_batch_mt.fr3';//did not support deparate image field
+  Rep_AskListWordTable       :string = 'Reports\ask_list_moodlewordtable_with_answers.fr3';//did not support separate image field
   Rep_AskListOnly            :string = 'Reports\ask_list_only.fr3';
   Rep_OffPaperWithoutAnswers :string = 'Reports\off_paper2.fr3';
   Rep_OffPaperWithAnswers    :string = 'Reports\off_paper_answers.fr3';

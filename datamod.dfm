@@ -2,12 +2,12 @@ object testeditDM: TtesteditDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 366
-  Top = 114
-  Height = 570
-  VerticalOffset = 46
+  Left = 328
+  Top = 91
+  Height = 699
   Width = 800
   object TestDB: TpFIBDatabase
+    Connected = True
     DBName = 'D:\TEST_DB\TDMU_TEST.GDB'
     DBParams.Strings = (
       'user_name=sysdba'
@@ -25,6 +25,7 @@ object testeditDM: TtesteditDM
     Top = 15
   end
   object ReadTr: TpFIBTransaction
+    Active = True
     DefaultDatabase = TestDB
     TimeoutAction = TARollback
     CSMonitorSupport.Enabled = csmeDatabaseDriven
@@ -104,6 +105,7 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.GeneratorName = 'GEN_SCIENS_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
     AutoUpdateOptions.SeparateBlobUpdate = True
+    Active = True
     AfterDelete = SciensDataSetAfterDelete
     AfterOpen = SciensDataSetAfterOpen
     AfterPost = SciensDataSetAfterPost
@@ -157,7 +159,6 @@ object testeditDM: TtesteditDM
       Visible = False
     end
     object SciensDataSetlanng_search: TStringField
-      DefaultExpression = '1'
       DisplayLabel = #1052#1086#1074#1072
       FieldKind = fkLookup
       FieldName = 'lanng_search'
@@ -184,6 +185,7 @@ object testeditDM: TtesteditDM
       FieldName = 'SEMESTR'
     end
     object SciensDataSetASK_COUNT: TFIBIntegerField
+      DefaultExpression = '0'
       DisplayLabel = #1055#1080#1090'.'
       FieldName = 'ASK_COUNT'
     end
@@ -464,6 +466,7 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.CanChangeSQLs = True
     AutoUpdateOptions.GeneratorName = 'GEN_TESTASKS_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
+    Active = True
     AfterDelete = TestAskDataSetAfterDelete
     AfterOpen = TestAskDataSetAfterOpen
     AfterPost = TestAskDataSetAfterPost
@@ -532,7 +535,7 @@ object testeditDM: TtesteditDM
       Visible = False
     end
     object TestAskDataSetANSWCOUNT: TFIBIntegerField
-      DefaultExpression = '0'
+      DefaultExpression = '1'
       DisplayLabel = #1050#1110#1083#1100#1082'. '#1074#1110#1076#1087'.'
       DisplayWidth = 10
       FieldName = 'ANSWCOUNT'
@@ -641,6 +644,7 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.GeneratorName = 'GEN_LIB_LANGUAGE_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
     AutoUpdateOptions.SeparateBlobUpdate = True
+    Active = True
     Transaction = ReadTr
     Database = TestDB
     UpdateTransaction = LangWtiteTr
@@ -1002,6 +1006,7 @@ object testeditDM: TtesteditDM
       '    ASKTYPEDESK'
       'FROM'
       '    LIB_ASKTYPE ')
+    Active = True
     Transaction = ReadTr
     Database = TestDB
     SQLScreenCursor = crSQLWait
@@ -1088,6 +1093,7 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.CanChangeSQLs = True
     AutoUpdateOptions.GeneratorName = 'GEN_ANSWERS_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
+    Active = True
     AfterDelete = AnswerDataSetAfterDelete
     AfterOpen = AnswerDataSetAfterOpen
     AfterPost = AnswerDataSetAfterPost
@@ -1208,6 +1214,7 @@ object testeditDM: TtesteditDM
       'FROM'
       '    LIB_SCIENS '
       '')
+    Active = True
     Transaction = ReadTr
     Database = TestDB
     SQLScreenCursor = crSQLWait
@@ -3217,613 +3224,1108 @@ object testeditDM: TtesteditDM
   object AskListReport: TfrxReport
     Version = '4.10.5'
     DotMatrixReport = False
-    EngineOptions.DoublePass = True
     IniFile = '\Software\Fast Reports'
     PreviewOptions.AllowEdit = False
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
-    PrintOptions.Printer = 'Default'
-    PrintOptions.PrintOnSheet = 9
-    ReportOptions.CreateDate = 40125.744610821800000000
-    ReportOptions.LastChange = 40887.764892210600000000
+    PrintOptions.Printer = #1047#1072' '#1079#1072#1084#1086#1074#1095#1091#1074#1072#1085#1085#1103#1084
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 39196.557967835710000000
+    ReportOptions.LastChange = 43928.598498599540000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
-      'procedure GroupHeader2OnBeforePrint(Sender: TfrxComponent);'
-      'begin'
-      
-        '  if CheckBox1.state = cbChecked then GroupHeader2.startNewPage ' +
-        ':= true'
-      '  else GroupHeader2.startNewPage := false;'
-      '  if ShowVarNumCheckBox.state = cbChecked then'
-      '  begin'
-      '    memo4.visible := true;'
-      '    memo5.visible := true;                  '
-      '  end'
-      '  else'
-      '  begin'
-      '    memo4.visible := false;'
-      '    memo5.visible := false;      '
-      '  end;            '
-      'end;'
       ''
       ''
-      'procedure ReportSummary1OnBeforePrint(Sender: TfrxComponent);'
+      'procedure Rich5OnBeforePrint(Sender: TfrxComponent);'
       'begin'
-      
-        '  if (AddEmptyPage.state = cbChecked)and((get('#39'Page'#39') mod 2) =1)' +
-        ' then ReportSummary1.startNewPage := true'
-      '  else ReportSummary1.startNewPage := false;  '
+      '//  Rich5.Height := Rich4.Height;  '
       'end;'
       ''
       'begin'
-      ''
+      '                                          '
       'end.')
     Left = 230
     Top = 550
     Datasets = <
       item
-        DataSet = R_OffAsksDS
-        DataSetName = 'R_OffAsksDS'
+        DataSet = Rep_AskDS
+        DataSetName = 'Rep_AskDS'
       end
       item
-        DataSet = R_OffPaperDS
-        DataSetName = 'R_OffPaperDS'
+        DataSet = Rep_AnswerDS
+        DataSetName = 'Rep_AnswerDS'
       end
       item
-        DataSet = R_SubjDS
-        DataSetName = 'R_SubjDS'
-      end
-      item
-        DataSet = R_SubjTestDS
-        DataSetName = 'R_SubjTestDS'
+        DataSet = Rep_SciensDS
+        DataSetName = 'Rep_SciensDS'
       end>
     Variables = <>
     Style = <>
     object Data: TfrxDataPage
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clBlack
-      Font.Height = -15
-      Font.Name = 'Times New Roman'
-      Font.Style = []
       Height = 1000.000000000000000000
       Width = 1000.000000000000000000
     end
     object Page1: TfrxReportPage
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clBlack
-      Font.Height = -16
-      Font.Name = 'Times New Roman'
-      Font.Style = []
       PaperWidth = 210.000000000000000000
       PaperHeight = 297.000000000000000000
       PaperSize = 9
       LeftMargin = 15.000000000000000000
-      RightMargin = 10.000000000000000000
+      RightMargin = 5.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
-      MirrorMargins = True
-      Duplex = dmVertical
-      object ReportTitle1: TfrxReportTitle
-        Font.Charset = RUSSIAN_CHARSET
-        Font.Color = clBlack
-        Font.Height = -16
-        Font.Name = 'Times New Roman'
-        Font.Style = [fsBold]
-        Height = 190.866265000000000000
-        ParentFont = False
-        Top = 18.897650000000000000
-        Width = 699.213050000000000000
+      object MasterData1: TfrxMasterData
+        Height = 158.740260000000000000
+        Top = 64.252010000000000000
+        Width = 718.110700000000000000
+        DataSet = Rep_AskDS
+        DataSetName = 'Rep_AskDS'
+        RowCount = 0
         Stretched = True
-        object R_SubjDSFACULTY: TfrxMemoView
-          Align = baWidth
+        object Rich4: TfrxRichView
           ShiftMode = smWhenOverlapped
-          Left = 340.157700000000000000
-          Top = 129.165430000000000000
-          Width = 359.055350000000000000
-          Height = 18.897650000000000000
+          Width = 672.756340000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
           StretchMode = smActualHeight
-          DataField = 'FACULTY'
-          DataSet = R_SubjDS
-          DataSetName = 'R_SubjDS'
-          GapX = 4.000000000000000000
-          Memo.UTF8 = (
-            '[R_SubjDS."FACULTY"]')
+          DataField = 'ASKTEXT2'
+          DataSet = Rep_AskDS
+          DataSetName = 'Rep_AskDS'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C204D532053
+            616E732053657269663B7D7D0D0A7B5C2A5C67656E657261746F72204D736674
+            6564697420352E34312E31352E313531353B7D5C766965776B696E64345C7563
+            315C706172645C66305C667331385C7061720D0A7D0D0A00}
         end
-        object R_SubjDSSEMESTR: TfrxMemoView
-          ShiftMode = smWhenOverlapped
-          Left = 345.826995000000000000
-          Top = 148.063080000000000000
-          Width = 111.118182000000000000
-          Height = 18.897650000000000000
+        object Rich5: TfrxRichView
+          Left = 672.756340000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
+          OnBeforePrint = 'Rich5OnBeforePrint'
           ShowHint = False
           StretchMode = smActualHeight
-          DataField = 'SEMESTR'
-          DataSet = R_SubjDS
-          DataSetName = 'R_SubjDS'
-          Memo.UTF8 = (
-            '[R_SubjDS."SEMESTR"]')
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743020417269616C3B7D7B5C66315C666E696C2054
+            61686F6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C72656431305C677265
+            656E37385C626C75653133313B5C726564305C677265656E305C626C7565303B
+            7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E31
+            352E313531353B7D5C766965776B696E64345C7563315C706172645C6366315C
+            6C616E67313033335C695C66305C66733138204D435C6366325C6C616E673130
+            35385C69305C66315C667331365C7061720D0A7D0D0A00}
         end
-        object R_OffPaperDSID_OFFEXAM: TfrxMemoView
-          ShiftMode = smWhenOverlapped
-          Left = 345.071089000000000000
-          Top = 166.960730000000000000
-          Width = 112.252041000000000000
-          Height = 18.897650000000000000
+        object Rich6: TfrxRichView
+          ShiftMode = smDontShift
+          Top = 26.456710000000000000
+          Width = 672.756340000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
           StretchMode = smActualHeight
-          DataField = 'ID_OFFEXAM'
-          DataSet = R_OffPaperDS
-          DataSetName = 'R_OffPaperDS'
-          Memo.UTF8 = (
-            '[R_OffPaperDS."ID_OFFEXAM"]')
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C71725C625C
+            66305C667332302044656661756C74206D61726B3A5C6366315C62305C66315C
+            7061720D0A7D0D0A00}
         end
-        object R_SubjTestDSperson_tit_srch: TfrxMemoView
-          Align = baWidth
-          ShiftMode = smWhenOverlapped
-          Top = 22.677180000000000000
-          Width = 699.213050000000000000
-          Height = 18.897650000000000000
+        object Rich7: TfrxRichView
+          ShiftMode = smDontShift
+          Left = 672.756340000000000000
+          Top = 26.456710000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C66305C6673
+            313820315C6366315C66315C7061720D0A7D0D0A00}
+        end
+        object Rich8: TfrxRichView
+          ShiftMode = smDontShift
+          Top = 52.913420000000000000
+          Width = 672.756340000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
           StretchMode = smActualHeight
-          DataField = 'person_tit_srch'
-          DataSet = R_SubjTestDS
-          DataSetName = 'R_SubjTestDS'
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clBlack
-          Font.Height = -16
-          Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
-          HAlign = haCenter
-          Memo.UTF8 = (
-            '[R_SubjTestDS."person_tit_srch"]')
-          ParentFont = False
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C71725C625C
+            66305C667331382053687566666C65207468652063686F696365733F5C636631
+            5C62305C66315C7061720D0A7D0D0A00}
         end
-        object R_SubjTestDSsign_tit_srch: TfrxMemoView
-          Align = baCenter
-          ShiftMode = smWhenOverlapped
-          Left = 230.551330000000000000
-          Top = 45.574830000000010000
-          Width = 238.110390000000000000
-          Height = 18.897650000000000000
+        object Rich9: TfrxRichView
+          ShiftMode = smDontShift
+          Left = 672.756340000000000000
+          Top = 52.913420000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C66305C6673
+            3138205965735C6366315C66315C7061720D0A7D0D0A00}
+        end
+        object Rich10: TfrxRichView
+          ShiftMode = smDontShift
+          Top = 79.370130000000000000
+          Width = 672.756340000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
           StretchMode = smActualHeight
-          DataField = 'sign_tit_srch'
-          DataSet = R_SubjTestDS
-          DataSetName = 'R_SubjTestDS'
-          HAlign = haCenter
-          Memo.UTF8 = (
-            '[R_SubjTestDS."sign_tit_srch"]')
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C71725C625C
+            66305C66733138204E756D626572207468652063686F696365733F5C6366315C
+            62305C66315C7061720D0A7D0D0A00}
         end
-        object R_SubjTestDSgroup_tit_srch: TfrxMemoView
-          Align = baCenter
-          ShiftMode = smWhenOverlapped
-          Left = 230.551330000000000000
-          Top = 68.472480000000000000
-          Width = 238.110390000000000000
-          Height = 18.897650000000000000
+        object Rich11: TfrxRichView
+          ShiftMode = smDontShift
+          Left = 672.756340000000000000
+          Top = 79.370130000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743020417269616C3B7D7B5C66315C666E696C2054
+            61686F6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C67726565
+            6E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564
+            697420352E34312E31352E313531353B7D5C766965776B696E64345C7563315C
+            706172645C6C616E67313033335C66305C6673313820415C6366315C6C616E67
+            313035385C66315C7061720D0A7D0D0A00}
+        end
+        object Rich12: TfrxRichView
+          ShiftMode = smDontShift
+          Top = 105.826840000000000000
+          Width = 672.756340000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
           StretchMode = smActualHeight
-          DataField = 'group_tit_srch'
-          DataSet = R_SubjTestDS
-          DataSetName = 'R_SubjTestDS'
-          HAlign = haCenter
-          Memo.UTF8 = (
-            '[R_SubjTestDS."group_tit_srch"]')
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C71725C625C
+            66305C667331382050656E616C747920666F72206561636820696E636F727265
+            6374207472793A5C6366315C62305C66315C7061720D0A7D0D0A00}
         end
-        object R_SubjTestDSspec_tit_srch: TfrxMemoView
-          Align = baWidth
-          ShiftMode = smWhenOverlapped
-          Top = 91.370130000000000000
-          Width = 699.213050000000000000
-          Height = 18.897650000000000000
+        object Rich13: TfrxRichView
+          ShiftMode = smDontShift
+          Left = 672.756340000000000000
+          Top = 105.826840000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
-          StretchMode = smActualHeight
-          DataField = 'spec_tit_srch'
-          DataSet = R_SubjTestDS
-          DataSetName = 'R_SubjTestDS'
-          HAlign = haCenter
-          Memo.UTF8 = (
-            '[R_SubjTestDS."spec_tit_srch"]')
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743020417269616C3B7D7B5C66315C666E696C2054
+            61686F6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C67726565
+            6E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564
+            697420352E34312E31352E313531353B7D5C766965776B696E64345C7563315C
+            706172645C6C616E67313033335C66305C6673313820305C6366315C6C616E67
+            313035385C66315C7061720D0A7D0D0A00}
         end
-        object R_SubjTestDSsubj_tit_srch: TfrxMemoView
-          ShiftMode = smWhenOverlapped
-          Top = 110.267780000000000000
-          Width = 340.157700000000000000
-          Height = 18.897650000000000000
+        object Rich14: TfrxRichView
+          ShiftMode = smDontShift
+          Top = 132.283550000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
-          StretchMode = smActualHeight
-          DataField = 'subj_tit_srch'
-          DataSet = R_SubjTestDS
-          DataSetName = 'R_SubjTestDS'
-          HAlign = haRight
-          Memo.UTF8 = (
-            '[R_SubjTestDS."subj_tit_srch"]')
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743020417269616C3B7D7B5C66315C666E696C2054
+            61686F6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C67726565
+            6E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564
+            697420352E34312E31352E313531353B7D5C766965776B696E64345C7563315C
+            706172645C6C616E67313033335C66305C6673313820235C6366315C6C616E67
+            313035385C66315C7061720D0A7D0D0A00}
         end
-        object R_SubjDSSUBJNAME: TfrxMemoView
-          Align = baWidth
-          ShiftMode = smWhenOverlapped
-          Left = 340.157700000000000000
-          Top = 110.267780000000000000
-          Width = 359.055350000000000000
-          Height = 18.897650000000000000
+        object Rich15: TfrxRichView
+          ShiftMode = smDontShift
+          Left = 45.354360000000000000
+          Top = 132.283550000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
-          StretchMode = smActualHeight
-          DataField = 'SUBJNAME'
-          DataSet = R_SubjDS
-          DataSetName = 'R_SubjDS'
-          GapX = 4.000000000000000000
-          Memo.UTF8 = (
-            '[R_SubjDS."SUBJNAME"]')
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C71635C625C
+            66305C6673313820416E73776572735C6366315C62305C66315C7061720D0A7D
+            0D0A00}
         end
-        object R_SubjTestDSfaculty_tit_srch: TfrxMemoView
-          Align = baLeft
-          ShiftMode = smWhenOverlapped
-          Top = 129.165430000000000000
-          Width = 340.157700000000000000
-          Height = 18.897650000000000000
+        object Rich16: TfrxRichView
+          ShiftMode = smDontShift
+          Left = 359.055350000000000000
+          Top = 132.283550000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
-          StretchMode = smActualHeight
-          DataField = 'faculty_tit_srch'
-          DataSet = R_SubjTestDS
-          DataSetName = 'R_SubjTestDS'
-          HAlign = haRight
-          Memo.UTF8 = (
-            '[R_SubjTestDS."faculty_tit_srch"]')
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C71635C625C
+            66305C6673313820466565646261636B5C6366315C62305C66315C7061720D0A
+            7D0D0A00}
         end
-        object R_SubjTestDSsemestr_tit_srch: TfrxMemoView
-          ShiftMode = smWhenOverlapped
-          Left = 102.047310000000000000
-          Top = 148.063080000000000000
-          Width = 238.110390000000000000
-          Height = 18.897650000000000000
+        object Rich17: TfrxRichView
+          ShiftMode = smDontShift
+          Left = 672.756340000000000000
+          Top = 132.283550000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 3
           ShowHint = False
-          StretchMode = smActualHeight
-          DataField = 'semestr_tit_srch'
-          DataSet = R_SubjTestDS
-          DataSetName = 'R_SubjTestDS'
-          HAlign = haRight
-          Memo.UTF8 = (
-            '[R_SubjTestDS."semestr_tit_srch"]')
-        end
-        object Memo3: TfrxMemoView
-          Align = baWidth
-          Width = 699.213050000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Frame.Typ = [ftBottom]
-          Memo.UTF8 = (
-            '[Date]')
-          ParentFont = False
-        end
-        object VariantTitle: TfrxMemoView
-          Left = 188.976500000000000000
-          Top = 167.189085000000000000
-          Width = 151.181200000000000000
-          Height = 18.897637800000000000
-          ShowHint = False
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
-          HAlign = haRight
-          ParentFont = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C71635C625C
+            66305C667331382047726164655C6366315C62305C66315C7061720D0A7D0D0A
+            00}
         end
       end
-      object MasterData1: TfrxMasterData
-        Height = 18.897637800000000000
-        Top = 381.732530000000000000
-        Width = 699.213050000000000000
-        DataSet = R_OffAsksDS
-        DataSetName = 'R_OffAsksDS'
+      object DetailData1: TfrxDetailData
+        Height = 26.456710000000000000
+        Top = 245.669450000000000000
+        Width = 718.110700000000000000
+        DataSet = Rep_AnswerDS
+        DataSetName = 'Rep_AnswerDS'
         RowCount = 0
         Stretched = True
         object Rich1: TfrxRichView
-          Align = baWidth
-          ShiftMode = smWhenOverlapped
-          Left = 62.362204720000000000
-          Width = 636.850845279999900000
-          Height = 18.897637800000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 2
           ShowHint = False
-          StretchMode = smActualHeight
-          AllowExpressions = False
-          DataField = 'RecData'
-          DataSet = R_OffAsksDS
-          DataSetName = 'R_OffAsksDS'
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
           RichEdit = {
             7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
             666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
-            72736574302054696D6573204E657720526F6D616E3B7D7B5C66315C666E696C
-            204D532053616E732053657269663B7D7D0D0A7B5C2A5C67656E657261746F72
-            204D7366746564697420352E34312E31352E313531353B7D5C766965776B696E
-            64345C7563315C706172645C6C616E67313033335C66305C6673323420205C6C
-            616E67313035385C66315C667331365C7061720D0A7D0D0A00}
+            727365743230347B5C2A5C666E616D6520417269616C3B7D417269616C204359
+            523B7D7B5C66315C666E696C5C66636861727365743020417269616C3B7D7D0D
+            0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B
+            7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E31
+            352E313531353B7D5C766965776B696E64345C7563315C706172645C66305C66
+            733138205B436872283C4C696E653E2B3634295D5C7E5C6366315C6C616E6731
+            3033335C66315C7061720D0A7D0D0A00}
         end
-        object Memo1: TfrxMemoView
-          Align = baLeft
-          Width = 34.015748030000000000
-          Height = 18.897650000000000000
+        object Rich18: TfrxRichView
+          Left = 45.354360000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 2
           ShowHint = False
-          DataField = 'RecPrefix'
-          DataSet = R_OffAsksDS
-          DataSetName = 'R_OffAsksDS'
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          GapX = 1.000000000000000000
-          LineSpacing = 1.000000000000000000
-          Memo.UTF8 = (
-            '[R_OffAsksDS."RecPrefix"]')
-          ParentFont = False
+          DataField = 'ANSWERTEXT1'
+          DataSet = Rep_AnswerDS
+          DataSetName = 'Rep_AnswerDS'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C204D532053
+            616E732053657269663B7D7D0D0A7B5C2A5C67656E657261746F72204D736674
+            6564697420352E34312E31352E313531353B7D5C766965776B696E64345C7563
+            315C706172645C66305C667331365C7061720D0A7D0D0A00}
         end
-        object R_OffAsksDSRecprefix2: TfrxMemoView
-          Align = baLeft
-          Left = 34.015748030000000000
-          Width = 28.346456690000000000
-          Height = 18.897650000000000000
+        object Rich19: TfrxRichView
+          Left = 359.055350000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 2
           ShowHint = False
-          DataField = 'Recprefix2'
-          DataSet = R_OffAsksDS
-          DataSetName = 'R_OffAsksDS'
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          GapX = 1.000000000000000000
-          HAlign = haCenter
-          LineSpacing = 1.000000000000000000
-          Memo.UTF8 = (
-            '[R_OffAsksDS."Recprefix2"]')
-          ParentFont = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich20: TfrxRichView
+          Left = 672.756340000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 2
+          ShowHint = False
+          StretchMode = smMaxHeight
+          DataSet = Rep_AnswerDS
+          DataSetName = 'Rep_AnswerDS'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C72656431305C677265656E37385C626C756531
+            33313B5C726564305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E
+            657261746F72204D7366746564697420352E34312E31352E313531353B7D5C76
+            6965776B696E64345C7563315C706172645C6366315C695C66305C6673313820
+            5B3C5265705F416E7377657244532E22574549474854223E2A3130305D5C6366
+            325C69305C66315C667331365C7061720D0A7D0D0A00}
         end
       end
       object GroupHeader1: TfrxGroupHeader
-        Font.Charset = RUSSIAN_CHARSET
-        Font.Color = clBlack
-        Font.Height = -15
-        Font.Name = 'Times New Roman'
-        Font.Style = []
-        ParentFont = False
-        Top = 359.055350000000000000
-        Width = 699.213050000000000000
-        Condition = 'R_OffAsksDS."RecPrefix"'
+        Height = 22.677180000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        Condition = 'Rep_AskDS."ID_ASK"'
+        KeepChild = True
         Stretched = True
-      end
-      object GroupHeader2: TfrxGroupHeader
-        Font.Charset = RUSSIAN_CHARSET
-        Font.Color = clBlack
-        Font.Height = -15
-        Font.Name = 'Times New Roman'
-        Font.Style = [fsBold]
-        Height = 18.897650000000000000
-        ParentFont = False
-        Top = 317.480520000000000000
-        Width = 699.213050000000000000
-        OnBeforePrint = 'GroupHeader2OnBeforePrint'
-        Condition = 'R_OffAsksDS."ID_ASKLIST"'
-        Stretched = True
-        object R_OffAsksDSTestModTitle: TfrxMemoView
-          Align = baWidth
-          ShiftMode = smWhenOverlapped
-          Left = 34.236240000000000000
-          Width = 664.976810000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          StretchMode = smActualHeight
-          DataField = 'TestModTitle'
-          DataSet = R_OffAsksDS
-          DataSetName = 'R_OffAsksDS'
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftBottom]
-          GapX = 1.000000000000000000
-          Memo.UTF8 = (
-            '[R_OffAsksDS."TestModTitle"]')
-          ParentFont = False
-        end
         object Memo2: TfrxMemoView
-          Align = baBottom
-          Left = 0.220470000000000000
-          Width = 34.015770000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          DisplayFormat.DecimalSeparator = ','
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftBottom]
-          GapX = 1.000000000000000000
-          Memo.UTF8 = (
-            '[Line#].')
-          ParentFont = False
-        end
-        object Line1: TfrxLineView
-          Align = baWidth
-          Width = 699.213050000000000000
-          ShowHint = False
-          Frame.Typ = [ftTop]
-        end
-      end
-      object PageFooter1: TfrxPageFooter
-        Font.Charset = RUSSIAN_CHARSET
-        Font.Color = clBlack
-        Font.Height = -15
-        Font.Name = 'Times New Roman'
-        Font.Style = []
-        Height = 18.897650000000000000
-        ParentFont = False
-        Top = 498.897960000000000000
-        Width = 699.213050000000000000
-        object SysMemo1: TfrxSysMemoView
-          Align = baCenter
-          Left = 302.362400000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
-          HAlign = haCenter
-          Memo.UTF8 = (
-            '[PAGE#]')
-          ParentFont = False
-        end
-      end
-      object PageHeader1: TfrxPageHeader
-        Height = 20.787415000000000000
-        Top = 234.330860000000000000
-        Width = 699.213050000000000000
-        PrintOnFirstPage = False
-        object Memo4: TfrxMemoView
           ShiftMode = smWhenOverlapped
-          Left = 565.039735000000000000
-          Width = 133.039456000000000000
-          Height = 18.897650000000000000
+          Width = 721.890230000000000000
+          Height = 22.677180000000000000
           ShowHint = False
           StretchMode = smActualHeight
-          DataField = 'ID_OFFEXAM'
-          DataSet = R_OffPaperDS
-          DataSetName = 'R_OffPaperDS'
           Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clBlack
-          Font.Height = -15
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[R_OffPaperDS."ID_OFFEXAM"]')
-          ParentFont = False
-        end
-        object Date: TfrxMemoView
-          Align = baWidth
-          Width = 340.157700000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[Date]')
-          ParentFont = False
-        end
-        object Memo5: TfrxMemoView
-          ShiftMode = smWhenOverlapped
-          Left = 340.157700000000000000
-          Width = 224.882035000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          StretchMode = smActualHeight
-          DataField = 'VAR_NAME'
-          DataSet = R_OffPaperDS
-          DataSetName = 'R_OffPaperDS'
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clBlack
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Times New Roman'
-          Font.Style = []
-          HAlign = haRight
+          Font.Style = [fsBold]
           Memo.UTF8 = (
-            '[R_OffPaperDS."VAR_NAME"]')
+            'Question [Line#] (MC)')
           ParentFont = False
-        end
-        object Line2: TfrxLineView
-          Top = 18.897650000000000000
-          Width = 699.213050000000000000
-          ShowHint = False
-          Frame.Typ = [ftTop]
         end
       end
-      object ReportSummary1: TfrxReportSummary
-        Height = 15.118120000000000000
-        Top = 461.102660000000000000
-        Width = 699.213050000000000000
-        OnBeforePrint = 'ReportSummary1OnBeforePrint'
-        object Memo6: TfrxMemoView
-          Align = baLeft
-          Width = 94.488250000000000000
-          Height = 13.228355000000000000
+      object GroupFooter1: TfrxGroupFooter
+        Height = 211.653680000000000000
+        Top = 294.803340000000000000
+        Width = 718.110700000000000000
+        object Rich2: TfrxRichView
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
           ShowHint = False
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Memo.UTF8 = (
-            '-')
-          ParentFont = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
+            727365743020417269616C3B7D7D0D0A7B5C636F6C6F7274626C203B5C726564
+            305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F7220
+            4D7366746564697420352E34312E31352E313531353B7D5C766965776B696E64
+            345C7563315C706172645C6366315C6C616E67313033335C667331385C706172
+            0D0A7D0D0A00}
+        end
+        object Rich21: TfrxRichView
+          Left = 45.354360000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C625C66305C
+            667331382047656E6572616C20666565646261636B3A5C6366315C62305C6631
+            5C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich22: TfrxRichView
+          Left = 359.055350000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich23: TfrxRichView
+          Left = 672.756340000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich24: TfrxRichView
+          Top = 26.456709999999990000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
+            727365743020417269616C3B7D7D0D0A7B5C636F6C6F7274626C203B5C726564
+            305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F7220
+            4D7366746564697420352E34312E31352E313531353B7D5C766965776B696E64
+            345C7563315C706172645C6366315C6C616E67313033335C667331385C706172
+            0D0A7D0D0A00}
+        end
+        object Rich25: TfrxRichView
+          Left = 45.354360000000000000
+          Top = 26.456709999999990000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C625C66305C
+            6673313820466F7220616E7920636F727265637420726573706F6E73653A5C63
+            66315C62305C66315C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich26: TfrxRichView
+          Left = 359.055350000000000000
+          Top = 26.456709999999990000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C66305C6673
+            323020596F757220616E7377657220697320636F72726563742E5C6366315C66
+            315C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich27: TfrxRichView
+          Left = 672.756340000000000000
+          Top = 26.456709999999990000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich28: TfrxRichView
+          Top = 52.913420000000030000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
+            727365743020417269616C3B7D7D0D0A7B5C636F6C6F7274626C203B5C726564
+            305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F7220
+            4D7366746564697420352E34312E31352E313531353B7D5C766965776B696E64
+            345C7563315C706172645C6366315C6C616E67313033335C667331385C706172
+            0D0A7D0D0A00}
+        end
+        object Rich29: TfrxRichView
+          Left = 45.354360000000000000
+          Top = 52.913419999999970000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C6673776973735C66707271325C666368
+            61727365743020417269616C3B7D7B5C66325C666E696C205461686F6D613B7D
+            7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565
+            303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E3431
+            2E31352E313531353B7D5C766965776B696E64345C7563315C706172645C625C
+            66305C6673313820466F7220616E79205C6C616E67313033335C663120696E5C
+            6C616E67313035385C663020636F727265637420726573706F6E73653A5C6366
+            315C62305C66325C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich30: TfrxRichView
+          Left = 359.055350000000000000
+          Top = 52.913420000000030000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C6673776973735C66707271325C666368
+            61727365743020417269616C3B7D7B5C66325C666E696C205461686F6D613B7D
+            7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565
+            303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E3431
+            2E31352E313531353B7D5C766965776B696E64345C7563315C706172645C6630
+            5C6673323020596F757220616E73776572206973205C6C616E67313033335C66
+            3120696E5C6C616E67313035385C663020636F72726563742E5C6366315C6632
+            5C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich31: TfrxRichView
+          Left = 672.756340000000000000
+          Top = 52.913420000000030000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich32: TfrxRichView
+          Top = 79.370130000000010000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
+            727365743020417269616C3B7D7D0D0A7B5C636F6C6F7274626C203B5C726564
+            305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F7220
+            4D7366746564697420352E34312E31352E313531353B7D5C766965776B696E64
+            345C7563315C706172645C6366315C6C616E67313033335C667331385C706172
+            0D0A7D0D0A00}
+        end
+        object Rich33: TfrxRichView
+          Left = 45.354360000000000000
+          Top = 79.370130000000010000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743020417269616C3B7D7B5C66315C666E696C2054
+            61686F6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C67726565
+            6E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564
+            697420352E34312E31352E313531353B7D5C766965776B696E64345C7563315C
+            706172645C6C616E67313033335C625C66305C667331382048696E7420313A5C
+            6366315C6C616E67313035385C62305C66315C667331365C7061720D0A7D0D0A
+            00}
+        end
+        object Rich34: TfrxRichView
+          Left = 359.055350000000000000
+          Top = 79.370130000000010000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich35: TfrxRichView
+          Left = 672.756340000000000000
+          Top = 79.370130000000010000
+          Width = 49.133890000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich36: TfrxRichView
+          Top = 105.826840000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
+            727365743020417269616C3B7D7D0D0A7B5C636F6C6F7274626C203B5C726564
+            305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F7220
+            4D7366746564697420352E34312E31352E313531353B7D5C766965776B696E64
+            345C7563315C706172645C6366315C6C616E67313033335C667331385C706172
+            0D0A7D0D0A00}
+        end
+        object Rich37: TfrxRichView
+          Left = 45.354360000000000000
+          Top = 105.826840000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C625C66305C
+            667331382053686F7720746865206E756D626572206F6620636F727265637420
+            726573706F6E736573202848696E742031293A5C6366315C62305C66315C6673
+            31365C7061720D0A7D0D0A00}
+        end
+        object Rich38: TfrxRichView
+          Left = 359.055350000000000000
+          Top = 105.826840000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C66305C6673
+            3230204E6F5C6366315C66315C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich39: TfrxRichView
+          Left = 672.756340000000000000
+          Top = 105.826840000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich40: TfrxRichView
+          Top = 132.283550000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
+            727365743020417269616C3B7D7D0D0A7B5C636F6C6F7274626C203B5C726564
+            305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F7220
+            4D7366746564697420352E34312E31352E313531353B7D5C766965776B696E64
+            345C7563315C706172645C6366315C6C616E67313033335C667331385C706172
+            0D0A7D0D0A00}
+        end
+        object Rich41: TfrxRichView
+          Left = 45.354360000000000000
+          Top = 132.283550000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C625C66305C
+            6673313820436C65617220696E636F727265637420726573706F6E7365732028
+            48696E742031293A5C6366315C62305C66315C667331365C7061720D0A7D0D0A
+            00}
+        end
+        object Rich42: TfrxRichView
+          Left = 359.055350000000000000
+          Top = 132.283550000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C66305C6673
+            3230204E6F5C6366315C66315C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich43: TfrxRichView
+          Left = 672.756340000000000000
+          Top = 132.283550000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich44: TfrxRichView
+          Top = 158.740260000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C5C66636861
+            727365743020417269616C3B7D7D0D0A7B5C636F6C6F7274626C203B5C726564
+            305C677265656E305C626C7565303B7D0D0A7B5C2A5C67656E657261746F7220
+            4D7366746564697420352E34312E31352E313531353B7D5C766965776B696E64
+            345C7563315C706172645C6366315C6C616E67313033335C667331385C706172
+            0D0A7D0D0A00}
+        end
+        object Rich45: TfrxRichView
+          Left = 45.354360000000000000
+          Top = 158.740260000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C625C66305C
+            6673313820546167733A5C6366315C62305C66315C667331365C7061720D0A7D
+            0D0A00}
+        end
+        object Rich46: TfrxRichView
+          Left = 359.055350000000000000
+          Top = 158.740260000000000000
+          Width = 313.700990000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich47: TfrxRichView
+          Left = 672.756340000000000000
+          Top = 158.740260000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich48: TfrxRichView
+          Top = 185.196970000000000000
+          Width = 672.756340000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          DataField = 'ANSWERTEXT1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C6673776973735C6670
+            7271325C66636861727365743230347B5C2A5C666E616D6520417269616C3B7D
+            417269616C204359523B7D7B5C66315C666E696C205461686F6D613B7D7D0D0A
+            7B5C636F6C6F7274626C203B5C726564305C677265656E305C626C7565303B7D
+            0D0A7B5C2A5C67656E657261746F72204D7366746564697420352E34312E3135
+            2E313531353B7D5C766965776B696E64345C7563315C706172645C695C66305C
+            6673323020416C6C6F7773207468652073656C656374696F6E206F6620612073
+            696E676C65206F72206D756C7469706C6520726573706F6E7365732066726F6D
+            2061207072652D646566696E6564206C6973742E20284D432F4D41295C636631
+            5C69305C66315C667331365C7061720D0A7D0D0A00}
+        end
+        object Rich3: TfrxRichView
+          Left = 672.756340000000000000
+          Top = 185.196970000000000000
+          Width = 45.354360000000000000
+          Height = 26.456710000000000000
+          GroupIndex = 1
+          ShowHint = False
+          StretchMode = smMaxHeight
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          GapX = 2.000000000000000000
+          GapY = 1.000000000000000000
+          RichEdit = {
+            7B5C727466315C616E73695C616E7369637067313235315C64656666305C6465
+            666C616E67313035387B5C666F6E7474626C7B5C66305C666E696C205461686F
+            6D613B7D7D0D0A7B5C636F6C6F7274626C203B5C726564305C677265656E305C
+            626C7565303B7D0D0A7B5C2A5C67656E657261746F72204D7366746564697420
+            352E34312E31352E313531353B7D5C766965776B696E64345C7563315C706172
+            645C6366315C66305C667331365C7061720D0A7D0D0A00}
         end
       end
     end
     object DialogPage1: TfrxDialogPage
-      Font.Charset = RUSSIAN_CHARSET
+      Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
-      Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1080' '#1079#1074#1110#1090#1091
-      Height = 158.000000000000000000
-      ClientHeight = 131.000000000000000000
-      Left = 320.000000000000000000
+      Height = 200.000000000000000000
+      ClientHeight = 170.000000000000000000
+      Left = 265.000000000000000000
       Top = 150.000000000000000000
       Width = 300.000000000000000000
       ClientWidth = 292.000000000000000000
-      object CheckBox1: TfrxCheckBoxControl
-        Left = 8.000000000000000000
-        Top = 12.000000000000000000
-        Width = 253.000000000000000000
-        Height = 17.000000000000000000
-        ShowHint = True
-        Caption = #1056#1086#1079#1087#1086#1095#1080#1085#1072#1090#1080' '#1082#1086#1078#1077#1085' '#1088#1086#1079#1076#1110#1083' '#1079' '#1085#1086#1074#1086#1111' '#1089#1090#1086#1088#1110#1085#1082#1080
-        Color = clBtnFace
-      end
-      object Button1: TfrxButtonControl
-        Left = 112.000000000000000000
-        Top = 88.000000000000000000
-        Width = 75.000000000000000000
-        Height = 25.000000000000000000
-        ShowHint = True
-        Caption = 'OK'
-        ModalResult = 1
-      end
-      object ShowVarNumCheckBox: TfrxCheckBoxControl
-        Left = 8.000000000000000000
-        Top = 36.000000000000000000
-        Width = 269.000000000000000000
-        Height = 17.000000000000000000
-        ShowHint = True
-        Caption = #1053#1086#1084#1077#1088' '#1074#1072#1088#1110#1072#1085#1090#1091' '#1074' '#1082#1086#1083#1086#1085#1090#1080#1090#1091#1083#1110' '#1082#1086#1078#1085#1086#1111' '#1089#1090#1086#1088#1110#1085#1082#1080
-        Color = clBtnFace
-      end
-      object AddEmptyPage: TfrxCheckBoxControl
-        Left = 8.000000000000000000
-        Top = 60.000000000000000000
-        Width = 277.000000000000000000
-        Height = 17.000000000000000000
-        ShowHint = True
-        Caption = #1044#1086#1073#1072#1074#1083#1103#1090#1080' '#1087#1086#1088#1086#1078#1085#1102' '#1089#1090#1086#1088#1110#1085#1082#1091' '#1076#1083#1103' '#1087#1072#1088#1085#1086#1111' '#1082#1110#1083#1100#1082#1086#1089#1090#1110
-        Checked = True
-        State = cbChecked
-        Color = clBtnFace
-      end
     end
   end
   object AskRepDesigner: TfrxDesigner

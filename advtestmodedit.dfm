@@ -1,6 +1,6 @@
 object AdvTestModEditor: TAdvTestModEditor
-  Left = 504
-  Top = 121
+  Left = 451
+  Top = 100
   BorderStyle = bsDialog
   Caption = #1056#1077#1076#1082#1090#1086#1088' '#1089#1087#1080#1089#1082#1091' '#1084#1086#1076#1091#1083#1110#1074' '#1090#1077#1089#1090#1091
   ClientHeight = 533

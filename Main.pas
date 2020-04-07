@@ -224,6 +224,8 @@ type
     InvalidQstenu: TMenuItem;
     SrchAnswerCountNotEqueaCmd: TAction;
     AnswerLessThenMenu: TMenuItem;
+    ExportMoodleWordtableCmd: TAction;
+    ExportMoodleWordtableCmd1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure ShowHint(Sender: TObject);
     procedure FilePrintSetup(Sender: TObject);
@@ -333,6 +335,7 @@ type
     function FileNameAutoCorrect(AFileName: string): String;
     procedure SrchAnswerlessQstCmdExecute(Sender: TObject);
     procedure SrchAnswerCountNotEqueaCmdExecute(Sender: TObject);
+    procedure ExportMoodleWordtableCmdExecute(Sender: TObject);
   private
     { Private declarations }
     ShowAnswers, AllowExportPapersFR : boolean;
@@ -2219,5 +2222,47 @@ begin
 end;
 
 
+
+procedure TMainForm.ExportMoodleWordtableCmdExecute(Sender: TObject);
+var
+  tmp_ask_ds, tmp_answ_ds : tdatasource;
+  nm0, nm1, nm2, nm3 : string;
+begin
+  //log action
+  testeditDM.write_log('≈кспорт списку питань з вказаними правильними в≥дпов≥д€ми в формат Moodle WordTable по модулю (розд≥лу):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
+  //disable dcWaitEndMasterScroll - options
+  testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen];
+  //set cursor face
+  cursor := crSQLWait;
+  //Improve performance - switch off grid datasets {10-05-2011}
+  tmp_ask_ds := AskGridDBTableView.DataController.DataSource;
+  AskGridDBTableView.DataController.DataSource := nil;
+  tmp_answ_ds := AnswGridDBTableView1.DataController.DataSource;
+  AnswGridDBTableView1.DataController.DataSource := nil;
+  try
+    //load report template
+    testeditDM.AskListReport.LoadFromFile(ExtractFilePath(Application.ExeName)+Rep_AskListWordTable,true);
+    try
+      //prepare filename template
+      nm0 := 'ID_'+ModulesDBGridEh.fields[0].AsString;//module ID
+      nm1 := leftstr(ModulesDBGridEh.fields[1].AsString,30);  //module name
+      nm2 := ModulesDBGridEh.Fields[3].AsString; //language name
+      nm3 := 'sem_N-'+ModulesDBGridEh.Fields[5].AsString;   //semestr number
+      testeditDM.AskListRTFExport.FileName := FileNameAutoCorrect(nm0 + '_' + nm1 + '_'+ nm2 + '_'+ nm3+RTF_ext);
+      testeditDM.AskListRTFExport.ShowDialog := true;
+      //show report
+      testeditDM.AskListReport.ShowReport();
+    except
+    end;
+  finally
+    //Improve performance - switch on grid datasets {10-05-2011}
+    AskGridDBTableView.DataController.DataSource := tmp_ask_ds;
+    AnswGridDBTableView1.DataController.DataSource := tmp_answ_ds;
+    //set cursor face
+    cursor := crDefault;
+    //enable dcWaitEndMasterScroll - options
+    testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen, dcWaitEndMasterScroll];
+  end;
+end;
 
 end.

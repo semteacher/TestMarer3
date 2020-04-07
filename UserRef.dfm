@@ -1,6 +1,6 @@
 object UserRefForm: TUserRefForm
-  Left = 326
-  Top = 194
+  Left = 292
+  Top = 160
   BorderStyle = bsDialog
   Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095#1110
   ClientHeight = 400

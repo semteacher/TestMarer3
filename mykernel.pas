@@ -1127,6 +1127,7 @@ procedure ImportFromWord(ImportFileName:OleVariant);
 var
   tmp_min_req, i, j, importedaskcount, textlen, err_str_count : integer;
   minFreqStr, tmpstr : string;
+  tmpstr2: olevariant;
                   procedure Disconnect_MSWord;
                   begin
                     //disconnect from document
@@ -1191,6 +1192,7 @@ begin
             //prepare ask text - delete two spec characters
             textlen := length(testeditdm.WordDocument1.Tables.Item(i).Cell(j,1).Range.text);
             tmpstr := LeftStr(testeditdm.WordDocument1.Tables.Item(i).Cell(j,1).Range.formattedtext.text, textlen-2);
+//tmpstr2 := testeditdm.WordDocument1.Tables.Item(i).Cell(j,1).Range.formattedtext.Paragraphs;
             //write ask text
             testeditdm.TestAskDataSet.FBN('ASKTEXT2').AsVariant := tmpstr;
             testeditdm.TestAskDataSet.FBN('FREQUENT').Asinteger := tmp_min_req; //minimal frequency {9-10-2011}
