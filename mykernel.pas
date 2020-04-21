@@ -30,11 +30,12 @@ uses sysutils, WordXP, Variants, DB, Classes, MoodleXML;
    procedure ImportFromMoodleXLM(ImportFileName:OleVariant);
    procedure ExportToMoodle(ExportFileName:OleVariant);
    procedure ExportToMoodle2(ExportFileName:OleVariant; def_answ_count:integer; ShowArchive: boolean);
+   procedure ExportToMoodleWordTable(ExportFileName:OleVariant; def_answ_count:integer; ShowArchive: boolean);
 
 var
   Word_Run : boolean;
 implementation
-uses Windows, ShellAPI, main, datamod, basevar, Controls, Dialogs, StrUtils, DateUtils, pFIBProps, FIBDatabase;
+uses Windows, Forms, ShellAPI, main, datamod, basevar, Clipbrd, Controls, Dialogs, StrUtils, DateUtils, pFIBProps, FIBDatabase;
 {==========================================================================}
 {---search TESTASK table to ask with minimal frequent for current sciens---}
 procedure PerformSearchMinimalFrequency(SciensIDToSearch : string; var SerchMinFreq : String);
@@ -1760,6 +1761,413 @@ begin
     tmp_question.Free;
     tmp_log.Free;
     testeditDM.RedyPaperMemTable.EmptyTable;
+  end;
+end;
+
+
+{---------------Moodle WordTable 2020 -------------------}
+procedure ExportToMoodleWordTable(ExportFileName:OleVariant; def_answ_count:integer; ShowArchive: boolean);
+const
+  AnswTempl1 = 'ANSWER: ';
+  AnswErrDef = 'ANSWER: A';
+//  LogFileName = 'EXP_AIKEN_ERROR';
+  LogFileNameHeader = 'ERROR_';
+  LogFileExt = '.txt';
+
+  font_size = 12; //default font size
+  comulcount = 3; //count of the column in the table
+  first_col = 30;  //width of the first column of the table
+  sec_col = 20;   //width of the second column of the table
+  third_col = 460;
+var
+  tmp_question, tmp_log : tstrings;
+  answ_count, warning_count, ask_total, right_answ_pos, answ_weight : integer;
+  ErrorFileName, tmp_answ_str, tmp_str, tmp_str1, tmp_askid_str : string;
+  answ_found : boolean;
+
+  PageNumberAlignment, FirstPage, tab_style, tab_border, r_beg, r_end, doc_end : OleVariant;
+  subject, faculty, semester, person, sign, group, speciality, tmpstr : string;
+  currtable, currow, rowscount : integer;
+  tb_start, tb_end : integer;
+  WFileName: OleVariant;
+  vRange1, vRange2, vcol, vend, vnum, vrep: OleVariant;
+  tmpRTFTextStream, tmpTableStream : tmemorystream;
+
+    MemHandle: THandle;
+  MemBlock: Pointer;
+  ASize, Len, i: Integer;
+  TempStr: String;
+  clip_format:Integer;
+        {---------------------------------------------}
+        procedure GetLangTitleData(LangIDStr:string);
+        begin
+          //set default values
+          subject := ''; faculty := ''; semester := '';
+          person := ''; sign := ''; group := ''; speciality := '';
+          //set filter to lang table
+          testeditdm.LangsDataSet.Filtered := false;
+          testeditdm.LangsDataSet.Filter := 'ID_LANG='+LangIDStr;
+          testeditdm.LangsDataSet.Filtered := true;
+          person := testeditdm.LangsDataSet.FieldByName('PERSON_TIT').AsString;
+          sign := testeditdm.LangsDataSet.FieldByName('SIGN_TIT').AsString;
+          group := testeditdm.LangsDataSet.FieldByName('GROUP_TIT').AsString;
+          speciality := testeditdm.LangsDataSet.FieldByName('SPEC_TIT').AsString;
+          subject := testeditdm.LangsDataSet.FieldByName('SUBJ_TIT').AsString;
+          faculty := testeditdm.LangsDataSet.FieldByName('FACULTY_TIT').AsString;
+          semester := testeditdm.LangsDataSet.FieldByName('SEMESTR_TIT').AsString;
+          //disable filter
+          testeditdm.LangsDataSet.Filtered := false;
+        end;
+        {---------------------------------------------}
+
+
+begin
+  try
+
+    //run microsoft word
+    Word_Run := true;
+    testeditdm.WordApplication1.Connect;
+    with testeditdm.WordApplication1 do
+    begin
+      //sample options
+      Options.Pagination := false;
+      Options.WPHelp := false;
+      Options.WPDocNavKeys := false;
+      Options.ShortMenuNames := false;
+      Options.RTFInClipboard := true;
+      Options.EnableSound := false;
+      Options.ConfirmConversions := false;
+      Options.UpdateLinksAtOpen := false;
+      Options.SendMailAttach := true;
+      Options.MeasurementUnit := 1; {centimeters}
+      Options.AllowPixelUnits := false;
+      Options.AnimateScreenMovements := false;
+      Options.ApplyFarEastFontsToAscii := false;
+      Options.InterpretHighAnsi := 1;
+      //disable spellchek
+      Options.CheckSpellingAsYouType:=False;
+      Options.CheckGrammarAsYouType:=False;
+      Options.CheckGrammarWithSpelling:=False;
+      Options.SuggestSpellingCorrections:=False;
+    end;
+    testeditdm.WordApplication1.Visible := false; // hide - works faster!
+
+    // open export document template
+    WFileName := ExtractFilePath(Application.ExeName)+Rep_AskListWordTable2;
+    testeditdm.WordApplication1.Documents.Open(WFileName,
+        EmptyParam, EmptyParam, EmptyParam, EmptyParam, EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+        EmptyParam, EmptyParam, EmptyParam, EmptyParam, EmptyParam, EmptyParam
+    );
+    // set document normal view - works faster!
+    testeditdm.WordApplication1.ActiveDocument.ActiveWindow.View.type_:=wdNormalView;
+    // save under new name
+    testeditdm.WordApplication1.ActiveDocument.SaveAs(ExportFileName, EmptyParam, EmptyParam, EmptyParam,
+                 EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                 EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                 EmptyParam, EmptyParam, EmptyParam, EmptyParam);
+    // set category
+    // prepare question name
+    tmp_askid_str := testeditDM.SciensDataSet.fbn('ID_sciens').AsString;
+    tmp_str := testeditDM.SciensDataSet.fbn('SC_NAME').AsString;
+    if length(tmp_str) > 50 then tmp_str := tmp_askid_str+'-'+AnsiLeftStr(tmp_str, 50)+'...'
+      else tmp_str := tmp_askid_str+'-'+tmp_str;
+    vrep:=wdReplaceOne;
+    //insert cantegory name text
+    testeditdm.WordApplication1.Selection.Find.Forward := True;
+    testeditdm.WordApplication1.Selection.Find.Text := '[Category name]';
+    testeditdm.WordApplication1.Selection.Find.Replacement.Text := tmp_str;
+    testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam , vrep,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam);
+    //testeditdm.WordApplication1.Selection.Collapse(vcol);
+
+    // search for range of MCQ table fragment in document
+    testeditdm.WordApplication1.Selection.Find.Text := '[questionstart]';
+    testeditdm.WordApplication1.Selection.Find.ClearFormatting;
+    testeditdm.WordApplication1.Selection.Find.Forward := True;
+    testeditdm.WordApplication1.Selection.Find.Wrap := wdFindContinue;
+    //testeditdm.WordDocument1.Range.Find.MatchWholeWord := True;
+    if testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam , EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam) then
+                begin
+                  testeditdm.WordApplication1.Selection.Text :='';
+                  tb_start := testeditdm.WordApplication1.Selection.Start;
+                end;
+    testeditdm.WordApplication1.Selection.Find.Text := '[questionend]';
+    testeditdm.WordApplication1.Selection.Find.ClearFormatting;
+    testeditdm.WordApplication1.Selection.Find.Forward := True;
+    testeditdm.WordApplication1.Selection.Find.Wrap := wdFindContinue;
+    //testeditdm.WordDocument1.Range.Find.MatchWholeWord := True;
+    if testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam , EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam) then
+                begin
+                  testeditdm.WordApplication1.Selection.Text :='';
+                  tb_end := testeditdm.WordApplication1.Selection.End_;
+                end;
+    // select MCQ table fragment, cut to clipboard and deselect
+    testeditdm.WordApplication1.Selection.SetRange(tb_start,tb_end);
+//    ShowMessage('questionstart='+inttostr(tb_start)+' questionend='+inttostr(tb_end));
+//ShowMessage(IntToStr(CF_TEXT)+', '+IntToStr(CF_BITMAP)+', '+IntToStr(CF_METAFILEPICT)+', '+IntToStr(CF_PICTURE)+', '+IntToStr(CF_COMPONENT));
+    testeditdm.WordApplication1.Selection.Cut;
+    vcol := wdCollapseEnd;
+    testeditdm.WordApplication1.Selection.Collapse(vcol);
+    // init memory buffers
+    tmpTableStream := tmemorystream.Create;
+    tmpRTFTextStream := tmemorystream.Create;
+    // copy clipboard content to memory buffer
+    Clipboard.Open;
+    try
+    // If something is in the clipboard in the correct format.
+//    begin
+//  for I := 0 to Clipboard.FormatCount-1 do
+    //ListBox1.Items.Add(IntToStr(Clipboard.Formats[I]));
+//    ShowMessage('clip_format['+inttostr(i)+']='+ IntToStr(Clipboard.Formats[I]));
+//  end;
+      //if Clipboard.HasFormat(TClipboardFormat) then
+      clip_format := Clipboard.Formats[2];  // Formats[2] - was empirical determined among of 18 total
+      if Clipboard.HasFormat(clip_format) then
+      begin
+        //MemHandle := Clipboard.GetAsHandle(TClipboardFormat);
+        MemHandle := Clipboard.GetAsHandle(clip_format);
+        if MemHandle <> 0 then
+          begin
+            // Detect size (number of bytes).
+            ASize := GlobalSize(MemHandle);
+            // Lock the contents of the clipboard.
+            MemBlock := GlobalLock(MemHandle);
+            try
+              // Copy the data into the stream.
+              tmpTableStream.Write(MemBlock^, ASize);
+            finally
+              GlobalUnlock(MemHandle);
+            end;
+        end;
+      end;
+    finally
+      Clipboard.Close;
+    end;
+
+    testeditdm.WordDocument1.ConnectTo(testeditdm.WordApplication1.ActiveDocument);
+    currtable :=1;
+
+    //init values
+    tmp_str := '';
+    tmp_question := TStringList.Create;
+    tmp_question.Clear;
+    tmp_log := TStringList.Create;
+    tmp_log.Clear;
+    tmp_log.Append('В процесі експорту виникли наступні проблеми/помилки:');
+    tmp_log.Append('(Код_питання - текст опису проблеми/помилки)');
+    ask_total := 0;
+    warning_count := 0;
+    vrep:=wdReplaceOne;
+    //get list of questions with answers by sciens_id
+    testeditDM.PrepareCurrentSciensAsksList(testeditDM.SciensDataSet.fbn('ID_sciens').AsString, true, ShowArchive);  {2013-02-13}
+    //goto first question in list
+    testeditDM.RedyPaperMemTable.Filtered:=false;  {+2014/08/12 - fix 0 question export for admins}
+    testeditDM.RedyPaperMemTable.First;
+    //set progressbar
+    mainform.SetProgressBar(0, testeditDM.RedyPaperMemTable.RecordCount, 1, 0);
+    while not(testeditDM.RedyPaperMemTable.eof) do //process all questions
+    begin
+      //check - is the current record is a qestion?
+      if testeditDM.RedyPaperMemTable.FieldByName('RecPrefix').AsString <> '' then
+      begin
+        //start new question
+        inc(ask_total);
+        inc(currtable);
+
+        // load MCQ table template from memory buffer into clipboard
+        MemHandle := GlobalAlloc(GMEM_DDESHARE, tmpTableStream.SIZE);
+        MemBlock := GlobalLock(MemHandle);
+        try
+          // Copy the contents of the stream into memory.
+          tmpTableStream.Seek(0, soFromBeginning);
+          tmpTableStream.Read(MemBlock^, tmpTableStream.SIZE);
+        finally
+          GlobalUnlock(MemHandle);
+        end;
+        // Pass the memory to the clipboard in the correct format.
+        Clipboard.Open;
+        Clipboard.SetAsHandle(clip_format, MemHandle);
+        Clipboard.Close;
+
+        // prepare question name
+        tmp_askid_str := testeditDM.RedyPaperMemTable.FieldByName('ASK_ID').AsString;
+        if length(mainform.RedyPaperTextDBRichEdit.Text) > 25 then
+          tmp_str := tmp_askid_str+'-'+AnsiLeftStr(mainform.RedyPaperTextDBRichEdit.Text, 25)+'...'
+        else tmp_str := tmp_askid_str+'-'+mainform.RedyPaperTextDBRichEdit.Text;
+
+    //insert MCQ question table template
+    vend:=wdParagraph;
+    vnum := testeditdm.WordApplication1.ActiveDocument.Paragraphs.Count;
+    testeditdm.WordApplication1.Selection.MoveDown(vend, vnum, EmptyParam);
+    testeditdm.WordApplication1.Selection.InsertParagraphAfter;
+    vnum :=1;
+    testeditdm.WordApplication1.Selection.MoveDown(vend, vnum, EmptyParam);
+    testeditdm.WordApplication1.Selection.Paste;
+    //insert question text
+    testeditdm.WordApplication1.Selection.Find.Forward := False;
+    testeditdm.WordApplication1.Selection.Find.Text := '[Question01]';
+    //testeditdm.WordApplication1.Selection.Find.Replacement.Text := 'Question '+inttostr(ask_total);
+    testeditdm.WordApplication1.Selection.Find.Replacement.Text := tmp_str;
+    testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam , vrep,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam);
+    testeditdm.WordApplication1.Selection.Collapse(vcol);
+    testeditdm.WordApplication1.Selection.Find.Forward := true;
+    testeditdm.WordApplication1.Selection.Find.Text := '[Questiontext]';
+    if testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam , EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam) then
+                begin
+                  //MainForm.RedyPaperTextDBRichEdit.Lines.SaveToStream(tmpRTFTextStream);
+                  MainForm.RedyPaperTextDBRichEdit.SelectAll;
+                  MainForm.RedyPaperTextDBRichEdit.CopyToClipboard;
+                  testeditdm.WordApplication1.Selection.Paste;
+                  testeditdm.WordApplication1.Selection.Collapse(vcol);
+                end;
+
+        //insert ask text
+        tmp_question.Append(AnsiToUTF8(mainform.RedyPaperTextDBRichEdit.Text));
+        //prepare answes defaults
+        tmp_str := '';
+        answ_found := false;
+        answ_count := 0;
+
+        //goto next record
+        testeditDM.RedyPaperMemTable.Next;
+        mainform.ProgressBarStepIt(1);//steep progressbar
+      end
+      else
+      begin
+        while (not(testeditDM.RedyPaperMemTable.eof))and(testeditDM.RedyPaperMemTable.FieldByName('RecPrefix2').AsString <> '') do
+        //recognize each next record as question answer
+        begin
+          testeditdm.WordApplication1.Selection.Find.Forward := true;
+          testeditdm.WordApplication1.Selection.Find.Text := '[answ'+inttostr(answ_count+1)+']';
+          if testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam , EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam) then
+                begin
+                  //MainForm.RedyPaperTextDBRichEdit.Lines.SaveToStream(tmpRTFTextStream);
+                  MainForm.RedyPaperTextDBRichEdit.SelectAll;
+                  MainForm.RedyPaperTextDBRichEdit.CopyToClipboard;
+                  testeditdm.WordApplication1.Selection.Paste;
+                  testeditdm.WordApplication1.Selection.Collapse(vcol);
+                end;
+
+          //check is this answer is right
+          answ_weight := 0;
+          right_answ_pos := pos('*', testeditDM.RedyPaperMemTable.FieldByName('RecPrefix2').AsString);
+          if right_answ_pos > 0 then
+          begin
+            //remove answer character '*' from answer title 'A/B/C/D ...' etc.
+            tmp_str1 := testeditDM.RedyPaperMemTable.FieldByName('RecPrefix2').AsString;
+            delete(tmp_str1, right_answ_pos, 1);
+            //create answer string based on template
+            tmp_answ_str := AnswTempl1 + copy(tmp_str1, 0, 1);
+            //create answer texl line
+            tmp_str := tmp_str1 + mainform.RedyPaperTextDBRichEdit.Text;
+            answ_found := true;
+            answ_weight := 100;
+          end
+          else tmp_str := testeditDM.RedyPaperMemTable.FieldByName('RecPrefix2').AsString + mainform.RedyPaperTextDBRichEdit.Text;
+
+          testeditdm.WordApplication1.Selection.Find.Text := '[aw'+inttostr(answ_count+1)+']';
+          if testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam , EmptyParam,
+                EmptyParam, EmptyParam, EmptyParam, EmptyParam) then
+                begin
+                  testeditdm.WordApplication1.Selection.Text := inttostr(answ_weight);
+                  testeditdm.WordApplication1.Selection.Collapse(vcol);
+                end;
+
+          //insert answer text
+          tmp_question.Append(AnsiToUtf8(tmp_str));
+          //goto the next answer
+          testeditDM.RedyPaperMemTable.Next;
+          mainform.ProgressBarStepIt(1);//steep progressbar
+          inc(answ_count);
+        end;
+        if answ_count > 0 then
+        begin
+          //insert answer definition text
+          if answ_found = true then tmp_question.Append(AnsiToUTF8(tmp_answ_str)) //check - is rigth answer present
+          else //error - right answer is not selected!
+          begin
+            tmp_question.Append(AnsiToUTF8(AnswErrDef));//set default answer
+            inc(warning_count);
+            tmp_log.Append(tmp_askid_str+'-відсутня правильна відповідь. Позначено відповідь А!');
+          end;
+          if answ_count <> def_answ_count then  //check - answer count
+          begin
+            inc(warning_count);
+            tmp_log.Append(tmp_askid_str+'-кількість відповідей не рівна '+inttostr(def_answ_count));
+          end;
+        end
+        else //error - answers are not avaliable in the database!
+        begin
+          inc(warning_count);
+          tmp_log.Append(tmp_askid_str+'-відсутні відповіді!');
+        end;
+        //insert empty line between asks
+        tmp_question.Append('');
+      end;
+    end;
+    //save file
+    //tmp_question.SaveToFile(ExportFileName);
+    // save changes in Word document
+    testeditdm.WordDocument1.Save;
+    MessageDlg('Успішно експортоавно '+ inttostr(ask_total) +' питань!', mtInformation, [mbOK], 0);
+    //errors list
+    if warning_count > 0 then
+    begin
+      if MessageDlg('Виявлено '+ inttostr(warning_count) +' проблем/помилок! Зберегти звіт і показати?', mtWarning, [mbYes, mbNo], 0) = mrYes then
+      begin
+        //create filename for the logging info
+        ErrorFileName := extractfilepath(ExportFileName)+ LogFileNameHeader+extractfilename(ExportFileName);
+        //save and open error file
+        tmp_log.SaveToFile(ErrorFileName);
+        ShellExecute(mainform.Handle, nil, pchar(ErrorFileName), nil, nil, SW_RESTORE);
+      end;
+    end;
+    //set progress bar position
+    mainform.ProgressBarPosition(0);
+    //delete temporarily objects
+    tmp_question.Free;
+    tmp_log.Free;
+    testeditDM.RedyPaperMemTable.EmptyTable;
+
+    testeditdm.WordApplication1.Quit;
+    testeditdm.WordApplication1.Disconnect;
+    //testeditdm.WordApplication1.Free;
+    tmpTableStream.Free;
+    // open created Word document again
+    //tmp_str := ExportFileName;
+    //ShellExecute(mainform.Handle, nil, pchar(tmp_str), nil, nil, SW_RESTORE);
+  except
+    MessageDlg('Помилка експорту! Перевірте Ваш документ /роботу мережі', mtError	, [mbOK], 0);
+    //set progress bar position
+    mainform.ProgressBarPosition(0);
+    //delete temporarily objects
+    tmp_question.Free;
+    tmp_log.Free;
+    testeditDM.RedyPaperMemTable.EmptyTable;
+
+    testeditdm.WordApplication1.Quit;
+    testeditdm.WordApplication1.Disconnect;
+    testeditdm.WordApplication1.Free;
+    tmpTableStream.Free;
   end;
 end;
 

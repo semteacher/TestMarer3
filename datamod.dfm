@@ -7,7 +7,6 @@ object testeditDM: TtesteditDM
   Height = 699
   Width = 800
   object TestDB: TpFIBDatabase
-    Connected = True
     DBName = 'D:\TEST_DB\TDMU_TEST.GDB'
     DBParams.Strings = (
       'user_name=sysdba'
@@ -25,7 +24,6 @@ object testeditDM: TtesteditDM
     Top = 15
   end
   object ReadTr: TpFIBTransaction
-    Active = True
     DefaultDatabase = TestDB
     TimeoutAction = TARollback
     CSMonitorSupport.Enabled = csmeDatabaseDriven
@@ -105,7 +103,6 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.GeneratorName = 'GEN_SCIENS_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
     AutoUpdateOptions.SeparateBlobUpdate = True
-    Active = True
     AfterDelete = SciensDataSetAfterDelete
     AfterOpen = SciensDataSetAfterOpen
     AfterPost = SciensDataSetAfterPost
@@ -466,7 +463,6 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.CanChangeSQLs = True
     AutoUpdateOptions.GeneratorName = 'GEN_TESTASKS_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
-    Active = True
     AfterDelete = TestAskDataSetAfterDelete
     AfterOpen = TestAskDataSetAfterOpen
     AfterPost = TestAskDataSetAfterPost
@@ -644,7 +640,6 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.GeneratorName = 'GEN_LIB_LANGUAGE_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
     AutoUpdateOptions.SeparateBlobUpdate = True
-    Active = True
     Transaction = ReadTr
     Database = TestDB
     UpdateTransaction = LangWtiteTr
@@ -1006,7 +1001,6 @@ object testeditDM: TtesteditDM
       '    ASKTYPEDESK'
       'FROM'
       '    LIB_ASKTYPE ')
-    Active = True
     Transaction = ReadTr
     Database = TestDB
     SQLScreenCursor = crSQLWait
@@ -1093,7 +1087,6 @@ object testeditDM: TtesteditDM
     AutoUpdateOptions.CanChangeSQLs = True
     AutoUpdateOptions.GeneratorName = 'GEN_ANSWERS_ID'
     AutoUpdateOptions.WhenGetGenID = wgBeforePost
-    Active = True
     AfterDelete = AnswerDataSetAfterDelete
     AfterOpen = AnswerDataSetAfterOpen
     AfterPost = AnswerDataSetAfterPost
@@ -1214,7 +1207,6 @@ object testeditDM: TtesteditDM
       'FROM'
       '    LIB_SCIENS '
       '')
-    Active = True
     Transaction = ReadTr
     Database = TestDB
     SQLScreenCursor = crSQLWait

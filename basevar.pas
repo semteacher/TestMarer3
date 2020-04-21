@@ -53,6 +53,7 @@ const
   Rep_OffPaperWithAnswers    :string = 'Reports\off_paper_answers.fr3';
   Rep_OffPaperRTFTemplate    :string = 'Reports\bilet_p_d.rtf';
   Rep_AskCoutByDep           :string = 'Reports\rep_ask_count.fr3';
+  Rep_AskListWordTable2      :string = 'Reports\Moodle2Word_Template_01.docx';
   //export directory name
   ExpDirName  :string = 'Export\';
   //repor path (2010) - for special edition only!

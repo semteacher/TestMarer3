@@ -226,6 +226,7 @@ type
     AnswerLessThenMenu: TMenuItem;
     ExportMoodleWordtableCmd: TAction;
     ExportMoodleWordtableCmd1: TMenuItem;
+    SaveDialog4: TSaveDialog;
     procedure FormCreate(Sender: TObject);
     procedure ShowHint(Sender: TObject);
     procedure FilePrintSetup(Sender: TObject);
@@ -2225,43 +2226,53 @@ end;
 
 procedure TMainForm.ExportMoodleWordtableCmdExecute(Sender: TObject);
 var
+  tmp_filename : string;
   tmp_ask_ds, tmp_answ_ds : tdatasource;
-  nm0, nm1, nm2, nm3 : string;
+  ShowArchive: boolean;
 begin
-  //log action
-  testeditDM.write_log('Експорт списку питань з вказаними правильними відповідями в формат Moodle WordTable по модулю (розділу):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
-  //disable dcWaitEndMasterScroll - options
-  testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen];
-  //set cursor face
-  cursor := crSQLWait;
-  //Improve performance - switch off grid datasets {10-05-2011}
-  tmp_ask_ds := AskGridDBTableView.DataController.DataSource;
-  AskGridDBTableView.DataController.DataSource := nil;
-  tmp_answ_ds := AnswGridDBTableView1.DataController.DataSource;
-  AnswGridDBTableView1.DataController.DataSource := nil;
-  try
-    //load report template
-    testeditDM.AskListReport.LoadFromFile(ExtractFilePath(Application.ExeName)+Rep_AskListWordTable,true);
-    try
-      //prepare filename template
-      nm0 := 'ID_'+ModulesDBGridEh.fields[0].AsString;//module ID
-      nm1 := leftstr(ModulesDBGridEh.fields[1].AsString,30);  //module name
-      nm2 := ModulesDBGridEh.Fields[3].AsString; //language name
-      nm3 := 'sem_N-'+ModulesDBGridEh.Fields[5].AsString;   //semestr number
-      testeditDM.AskListRTFExport.FileName := FileNameAutoCorrect(nm0 + '_' + nm1 + '_'+ nm2 + '_'+ nm3+RTF_ext);
-      testeditDM.AskListRTFExport.ShowDialog := true;
-      //show report
-      testeditDM.AskListReport.ShowReport();
-    except
-    end;
-  finally
-    //Improve performance - switch on grid datasets {10-05-2011}
-    AskGridDBTableView.DataController.DataSource := tmp_ask_ds;
-    AnswGridDBTableView1.DataController.DataSource := tmp_answ_ds;
+//for secured version
+///  tmp_filename := inputbox('Назва файлу', 'Введіть назву файлу', ModulesDBGridEh.DataSource.DataSet.fieldbyname('SC_NAME').AsString);
+  //create the default filename
+  tmp_filename := 'ID_'+testeditDM.SciensDataSet.FBN('ID_SCIENS').asstring;
+//  tmp_filename := tmp_filename+'_'+testeditDM.SciensDataSet.FBN('SC_NAME').asstring;
+//  if not testeditDM.SciensDataSet.FBN('SC_DESCR').IsNull
+//     then tmp_filename := tmp_filename+'_'+testeditDM.SciensDataSet.FBN('SC_DESCR').asstring;
+//  tmp_filename := tmp_filename+'_'+testeditDM.SciensDataSet.FBN('lanng_search').asstring;
+//  tmp_filename := tmp_filename+'_'+testeditDM.SciensDataSet.FBN('sc_name_search').asstring;
+  tmp_filename := tmp_filename+'_semestr-'+testeditDM.SciensDataSet.FBN('SEMESTR').asstring;
+  tmp_filename := tmp_filename+'_export2moodle';
+  //setup the default filename
+  SaveDialog4.FileName := FileNameAutoCorrect(tmp_filename);
+  //get archive export option
+  if MessageDlg('Експортувати також і архівні питання?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then ShowArchive := true
+  else ShowArchive := false;
+  //run the save dialog
+  if SaveDialog4.Execute then
+  begin
     //set cursor face
-    cursor := crDefault;
-    //enable dcWaitEndMasterScroll - options
-    testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen, dcWaitEndMasterScroll];
+    cursor := crSQLWait;
+    try
+      //log action
+      testeditDM.write_log('Експорт списку питань з відповідями в форматі WordTable (MOODLE):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
+      //Improve performance - switch off grid datasets {10-05-2011}
+      tmp_ask_ds := AskGridDBTableView.DataController.DataSource;
+      AskGridDBTableView.DataController.DataSource := nil;
+      tmp_answ_ds := AnswGridDBTableView1.DataController.DataSource;
+      AnswGridDBTableView1.DataController.DataSource := nil;
+      //disable dcWaitEndMasterScroll - options
+      testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen];
+      //try export
+      mykernel.ExportToMoodleWordTable(SaveDialog4.FileName, DefOpenAskAnswerCount, ShowArchive);//12-04-2020
+      ///mykernel.ExportToMoodle(ReportDiName+'\'+tmp_filename); //for secured version
+    finally
+      //enable dcWaitEndMasterScroll - options
+      testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen, dcWaitEndMasterScroll];
+      //Improve performance - switch on grid datasets {10-05-2011}
+      AskGridDBTableView.DataController.DataSource := tmp_ask_ds;
+      AnswGridDBTableView1.DataController.DataSource := tmp_answ_ds;
+      //set cursor face
+      cursor := crDefault;
+    end;
   end;
 end;
 
