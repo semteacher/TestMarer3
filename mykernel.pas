@@ -1872,6 +1872,7 @@ begin
     if length(tmp_str) > 50 then tmp_str := tmp_askid_str+'-'+AnsiLeftStr(tmp_str, 50)+'...'
       else tmp_str := tmp_askid_str+'-'+tmp_str;
     vrep:=wdReplaceOne;
+    vcol := wdCollapseEnd;
     //insert cantegory name text
     testeditdm.WordApplication1.Selection.Find.Forward := True;
     testeditdm.WordApplication1.Selection.Find.Text := '[Category name]';
@@ -1880,7 +1881,7 @@ begin
                 EmptyParam, EmptyParam, EmptyParam, EmptyParam,
                 EmptyParam, EmptyParam, EmptyParam , vrep,
                 EmptyParam, EmptyParam, EmptyParam, EmptyParam);
-    //testeditdm.WordApplication1.Selection.Collapse(vcol);
+    testeditdm.WordApplication1.Selection.Collapse(vcol);
 
     // search for range of MCQ table fragment in document
     testeditdm.WordApplication1.Selection.Find.Text := '[questionstart]';
@@ -1911,10 +1912,7 @@ begin
                 end;
     // select MCQ table fragment, cut to clipboard and deselect
     testeditdm.WordApplication1.Selection.SetRange(tb_start,tb_end);
-//    ShowMessage('questionstart='+inttostr(tb_start)+' questionend='+inttostr(tb_end));
-//ShowMessage(IntToStr(CF_TEXT)+', '+IntToStr(CF_BITMAP)+', '+IntToStr(CF_METAFILEPICT)+', '+IntToStr(CF_PICTURE)+', '+IntToStr(CF_COMPONENT));
     testeditdm.WordApplication1.Selection.Cut;
-    vcol := wdCollapseEnd;
     testeditdm.WordApplication1.Selection.Collapse(vcol);
     // init memory buffers
     tmpTableStream := tmemorystream.Create;
@@ -1952,7 +1950,7 @@ begin
       Clipboard.Close;
     end;
 
-    testeditdm.WordDocument1.ConnectTo(testeditdm.WordApplication1.ActiveDocument);
+    //testeditdm.WordDocument1.ConnectTo(testeditdm.WordApplication1.ActiveDocument);
     currtable :=1;
 
     //init values
@@ -2014,8 +2012,8 @@ begin
     //insert question text
     testeditdm.WordApplication1.Selection.Find.Forward := False;
     testeditdm.WordApplication1.Selection.Find.Text := '[Question01]';
-    //testeditdm.WordApplication1.Selection.Find.Replacement.Text := 'Question '+inttostr(ask_total);
-    testeditdm.WordApplication1.Selection.Find.Replacement.Text := tmp_str;
+    testeditdm.WordApplication1.Selection.Find.Replacement.Text := 'Question '+tmp_askid_str;
+    //testeditdm.WordApplication1.Selection.Find.Replacement.Text := tmp_str;
     testeditdm.WordApplication1.Selection.Find.Execute(EmptyParam,EmptyParam, EmptyParam,
                 EmptyParam, EmptyParam, EmptyParam, EmptyParam,
                 EmptyParam, EmptyParam, EmptyParam , vrep,
@@ -2036,7 +2034,7 @@ begin
                 end;
 
         //insert ask text
-        tmp_question.Append(AnsiToUTF8(mainform.RedyPaperTextDBRichEdit.Text));
+        //tmp_question.Append(AnsiToUTF8(mainform.RedyPaperTextDBRichEdit.Text));
         //prepare answes defaults
         tmp_str := '';
         answ_found := false;
@@ -2093,7 +2091,7 @@ begin
                 end;
 
           //insert answer text
-          tmp_question.Append(AnsiToUtf8(tmp_str));
+          //tmp_question.Append(AnsiToUtf8(tmp_str));
           //goto the next answer
           testeditDM.RedyPaperMemTable.Next;
           mainform.ProgressBarStepIt(1);//steep progressbar
@@ -2127,7 +2125,14 @@ begin
     //save file
     //tmp_question.SaveToFile(ExportFileName);
     // save changes in Word document
-    testeditdm.WordDocument1.Save;
+    //testeditdm.WordDocument1.Save;
+
+    //save changes in Word document
+    testeditdm.WordApplication1.ActiveDocument.Save;
+    testeditdm.WordApplication1.Visible := true;
+    //testeditdm.WordApplication1.Quit;
+    testeditdm.WordApplication1.Disconnect;
+    //prepare logs
     MessageDlg('Успішно експортоавно '+ inttostr(ask_total) +' питань!', mtInformation, [mbOK], 0);
     //errors list
     if warning_count > 0 then
@@ -2135,7 +2140,7 @@ begin
       if MessageDlg('Виявлено '+ inttostr(warning_count) +' проблем/помилок! Зберегти звіт і показати?', mtWarning, [mbYes, mbNo], 0) = mrYes then
       begin
         //create filename for the logging info
-        ErrorFileName := extractfilepath(ExportFileName)+ LogFileNameHeader+extractfilename(ExportFileName);
+        ErrorFileName := extractfilepath(ExportFileName)+ LogFileNameHeader+extractfilename(ExportFileName)+'.txt';
         //save and open error file
         tmp_log.SaveToFile(ErrorFileName);
         ShellExecute(mainform.Handle, nil, pchar(ErrorFileName), nil, nil, SW_RESTORE);
@@ -2147,10 +2152,6 @@ begin
     tmp_question.Free;
     tmp_log.Free;
     testeditDM.RedyPaperMemTable.EmptyTable;
-
-    testeditdm.WordApplication1.Quit;
-    testeditdm.WordApplication1.Disconnect;
-    //testeditdm.WordApplication1.Free;
     tmpTableStream.Free;
     // open created Word document again
     //tmp_str := ExportFileName;
@@ -2164,9 +2165,9 @@ begin
     tmp_log.Free;
     testeditDM.RedyPaperMemTable.EmptyTable;
 
-    testeditdm.WordApplication1.Quit;
+    //testeditdm.WordApplication1.Quit;
+    testeditdm.WordApplication1.Visible := true;
     testeditdm.WordApplication1.Disconnect;
-    testeditdm.WordApplication1.Free;
     tmpTableStream.Free;
   end;
 end;
