@@ -1609,10 +1609,10 @@ begin
     mainform.ExpOffPaper.Enabled := true;
     mainform.ExpOffPaperRTF.Enabled := true;
     mainform.ExpAnswers.Enabled := true;
-    mainform.ExpOffModuleWord.Enabled := true;    
+    mainform.ExpOffModuleWord.Enabled := true;
     mainform.PrintGB.Enabled := true;
-    //mainform.PrintOffPaperWithAnsw.Enabled := true;
-    mainform.PrintOffPaperWithAnsw.Enabled := mainform.AnswRepSB.Enabled; {18/12/2014}
+    mainform.PrintOffPaperWithAnsw.Enabled := true;  {enabled back 7/11/2021}
+    //mainform.PrintOffPaperWithAnsw.Enabled := mainform.AnswRepSB.Enabled; {7/11/2021}}
     mainform.ClonePaperCmd.Enabled := true;
     mainform.PrintOffPaperFReport.Enabled := true;
     mainform.ExpAnswersWord.Enabled := true;    
