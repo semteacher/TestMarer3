@@ -35,7 +35,7 @@ object LoginForm: TLoginForm
     Width = 93
     Height = 16
     Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -48,7 +48,7 @@ object LoginForm: TLoginForm
     Width = 74
     Height = 16
     Caption = #1042#1074#1110#1081#1090#1080' '#1103#1082':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -60,7 +60,7 @@ object LoginForm: TLoginForm
     Top = 40
     Width = 201
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -74,7 +74,7 @@ object LoginForm: TLoginForm
     Top = 8
     Width = 201
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -101,7 +101,7 @@ object LoginForm: TLoginForm
     Top = 72
     Width = 201
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
