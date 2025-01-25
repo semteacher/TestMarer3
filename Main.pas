@@ -14,9 +14,9 @@ uses
   cxGridTableView, cxGridDBTableView, cxGridLevel, cxClasses, cxControls,
   cxGridCustomView, cxGrid, cxRichEdit, cxRadioGroup, cxCheckBox,
   dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter, cxLookAndFeels,
-  cxTextEdit, cxSpinEdit, cxNavigator, cxDBNavigator, frxClass, Variants,
-  RXSplit, StrUtils, frxExportRTF, FileCtrl{, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
-  dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
+  cxTextEdit, cxSpinEdit, cxNavigator, cxDBNavigator,
+  frxClass, frxRich,
+  Variants, RXSplit, StrUtils, frxExportRTF, FileCtrl{, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,  dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
   dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins,
   dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
   dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinPumpkin,
@@ -1162,7 +1162,9 @@ end;
 procedure TMainForm.PrintOffPaperFReportExecute(Sender: TObject);
 var
   tmpfilter : string;
-  VariantTitle: TfrxMemoView;
+  VariantTitle : TfrxMemoView;
+  RichView1 : TfrxRichView;
+  mf: TFont;
 begin
   CheckPreparePaper(false);
   //disable filter
@@ -1188,6 +1190,13 @@ begin
   if testeditDM.SubjTestDataSet.FBN('lanng_search').AsString ='English'then VariantTitle.Text := 'Variant:'
   else if testeditDM.SubjTestDataSet.FBN('lanng_search').AsString ='Українська' then VariantTitle.Text := 'Варіант:'
        else VariantTitle.Text := 'Вариант:';
+
+
+  RichView1 := testeditDM.AskListReport.FindObject('Rich1') as TfrxRichView;
+  RichView1.Font.Name := 'Times New Roman';
+  RichView1.Font.Charset := RUSSIAN_CHARSET;
+  RichView1.Font.Size := 11;
+
   //show report
   testeditDM.AskListRTFExport.ShowDialog := true;
   testeditDM.AskListReport.ShowReport();
