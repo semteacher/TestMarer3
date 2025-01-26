@@ -1198,6 +1198,9 @@ begin
   //Rich1.Font.Size := 11;
 
   Rich1.Font := Memo1.Font;
+  Rich1.RichEdit.Font.Name := 'Times New Roman';
+  Rich1.RichEdit.Font.Charset := RUSSIAN_CHARSET;
+  Rich1.RichEdit.Font.Size := 11;
 
   //show report
   testeditDM.AskListRTFExport.ShowDialog := true;
