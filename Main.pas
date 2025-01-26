@@ -1162,8 +1162,8 @@ end;
 procedure TMainForm.PrintOffPaperFReportExecute(Sender: TObject);
 var
   tmpfilter : string;
-  VariantTitle : TfrxMemoView;
-  RichView1 : TfrxRichView;
+  VariantTitle, Memo1 : TfrxMemoView;
+  Rich1 : TfrxRichView;
   mf: TFont;
 begin
   CheckPreparePaper(false);
@@ -1191,11 +1191,13 @@ begin
   else if testeditDM.SubjTestDataSet.FBN('lanng_search').AsString ='Українська' then VariantTitle.Text := 'Варіант:'
        else VariantTitle.Text := 'Вариант:';
 
+  Memo1 := testeditDM.AskListReport.FindObject('Memo1') as TfrxMemoView;
+  Rich1 := testeditDM.AskListReport.FindObject('Rich1') as TfrxRichView;
+  //Rich1.Font.Name := 'Times New Roman';
+  //Rich1.Font.Charset := RUSSIAN_CHARSET;
+  //Rich1.Font.Size := 11;
 
-  RichView1 := testeditDM.AskListReport.FindObject('Rich1') as TfrxRichView;
-  RichView1.Font.Name := 'Times New Roman';
-  RichView1.Font.Charset := RUSSIAN_CHARSET;
-  RichView1.Font.Size := 11;
+  Rich1.Font := Memo1.Font;
 
   //show report
   testeditDM.AskListRTFExport.ShowDialog := true;

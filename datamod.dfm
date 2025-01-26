@@ -3224,7 +3224,7 @@ object testeditDM: TtesteditDM
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 9
     ReportOptions.CreateDate = 40125.744610821800000000
-    ReportOptions.LastChange = 45682.930186631940000000
+    ReportOptions.LastChange = 45683.389020902780000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'procedure GroupHeader2OnBeforePrint(Sender: TfrxComponent);'
@@ -3256,6 +3256,7 @@ object testeditDM: TtesteditDM
       ''
       'procedure Rich1OnAfterData(Sender: TfrxComponent);'
       'begin'
+      '  Rich1.Font := Memo1.Font;                         '
       '  //Rich1.Font.Name := '#39'Times New Roman'#39';  '
       '  //Rich1.Font.Charset := RUSSIAN_CHARSET;  '
       '  //Rich1.Font.size := 11;            '
