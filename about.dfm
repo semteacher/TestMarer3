@@ -23,7 +23,13 @@ object AboutBox: TAboutBox
     Height = 113
     BevelInner = bvRaised
     BevelOuter = bvLowered
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     ParentColor = True
+    ParentFont = False
     TabOrder = 0
     object ProgramIcon: TImage
       Left = 8
@@ -62,7 +68,7 @@ object AboutBox: TAboutBox
       Height = 41
       AutoSize = False
       Caption = 'ProductName1'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
       Font.Name = 'MS Sans Serif'
@@ -91,7 +97,7 @@ object AboutBox: TAboutBox
       Width = 92
       Height = 13
       Caption = 'ProductName1'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -104,7 +110,7 @@ object AboutBox: TAboutBox
       Width = 73
       Height = 13
       Caption = 'ProductName1'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -117,7 +123,7 @@ object AboutBox: TAboutBox
       Width = 62
       Height = 13
       Caption = #1050#1086#1085#1090#1072#1082#1090#1080':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'MS Sans Serif'

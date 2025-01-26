@@ -53,7 +53,7 @@ object AskEditForm: TAskEditForm
       Color = clBtnFace
       DataField = 'SC_NAME'
       DataSource = testeditDM.SciensDS
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -67,7 +67,7 @@ object AskEditForm: TAskEditForm
       Width = 91
       Height = 13
       Caption = #1058#1077#1084#1072' ('#1084#1086#1076#1091#1083#1100'):'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -80,7 +80,7 @@ object AskEditForm: TAskEditForm
       Width = 124
       Height = 13
       Caption = #1053#1072#1091#1082#1086#1074#1080#1081' '#1085#1072#1087#1088#1103#1084#1086#1082':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -94,7 +94,7 @@ object AskEditForm: TAskEditForm
       Height = 14
       DataField = 'sc_name_search'
       DataSource = testeditDM.SciensDS
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -116,7 +116,7 @@ object AskEditForm: TAskEditForm
       Width = 79
       Height = 13
       Caption = #1058#1080#1087' '#1087#1080#1090#1072#1085#1085#1103':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -129,7 +129,7 @@ object AskEditForm: TAskEditForm
       Width = 126
       Height = 13
       Caption = #1050#1110#1083#1100#1082#1110#1089#1090#1100' '#1074#1110#1076#1087#1086#1074#1110#1076#1077#1081':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -142,7 +142,7 @@ object AskEditForm: TAskEditForm
       Width = 85
       Height = 13
       Caption = #1042#1072#1075#1072' '#1087#1080#1090#1072#1085#1085#1103':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -186,7 +186,7 @@ object AskEditForm: TAskEditForm
         Left = 374
         Top = 5
         Width = 42
-        Height = 21
+        Height = 24
         Alignment = taRightJustify
         ButtonKind = bkStandard
         Decimal = 0
@@ -444,7 +444,7 @@ object AskEditForm: TAskEditForm
       DataField = 'ID_ASKTYPE'
       DataSource = testeditDM.TestAskDS
       EditButtons = <>
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -467,7 +467,7 @@ object AskEditForm: TAskEditForm
       DataField = 'ANSWCOUNT'
       DataSource = testeditDM.TestAskDS
       EditButtons = <>
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -493,7 +493,7 @@ object AskEditForm: TAskEditForm
       DataField = 'ARCHIVE'
       DataSource = testeditDM.TestAskDS
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -513,7 +513,7 @@ object AskEditForm: TAskEditForm
       EditButton.Style = ebsUpDownEh
       EditButton.Visible = True
       EditButtons = <>
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -533,6 +533,12 @@ object AskEditForm: TAskEditForm
     Height = 217
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderStyle = bsSingle
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 3
     DesignSize = (
       749
@@ -544,7 +550,7 @@ object AskEditForm: TAskEditForm
       Height = 25
       Caption = #1042#1080#1076#1072#1083#1080#1090#1080' '#1110#1083#1102#1089#1090#1088#1072#1094#1110#1102
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -560,7 +566,7 @@ object AskEditForm: TAskEditForm
       Height = 25
       Caption = #1044#1086#1073#1072#1074#1080#1090#1080' '#1110#1083#1102#1089#1090#1088#1072#1094#1110#1102
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -576,7 +582,7 @@ object AskEditForm: TAskEditForm
       Height = 25
       Caption = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079' '#1073#1091#1092#1077#1088#1091
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -594,7 +600,7 @@ object AskEditForm: TAskEditForm
         #1059' '#1074#1080#1087#1072#1076#1082#1091', '#1103#1082#1097#1086' '#1074#1089#1090#1072#1074#1082#1072' '#1079' '#1073#1091#1092#1077#1088#1091' '#1085#1077' '#1074#1110#1076#1073#1091#1074#1072#1108#1090#1100#1089#1103', '#1074#1089#1090#1072#1074#1090#1077' '#1076#1072#1085#1080#1081' ' +
         #1086#1073#39#1108#1082#1090' '#1074' '#1076#1086#1082#1091#1084#1077#1085#1090' Word, '#1089#1082#1086#1087#1110#1102#1081#1090#1077' '#1081#1086#1075#1086' '#1074' '#1073#1091#1092#1077#1088', '#1110' '#1074#1089#1090#1072#1074#1083#1103#1081#1090#1077' '#1087#1086#1074 +
         #1090#1086#1088#1085#1086'.'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -610,7 +616,7 @@ object AskEditForm: TAskEditForm
       Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079' '#1087#1077#1088#1077#1090#1074#1086#1088#1077#1085#1085#1103#1084' '#1086#1073'"'#1108#1082#1090#1072
       Caption = #1042#1089#1090#1072#1074#1080#1090#1080' '#1103#1082'...'
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -627,6 +633,12 @@ object AskEditForm: TAskEditForm
       Anchors = [akLeft, akTop, akRight, akBottom]
       DataField = 'ASKIMAGE'
       DataSource = testeditDM.TestAskDS
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
     end
     object RxRichEdit1: TRxRichEdit
@@ -635,6 +647,12 @@ object AskEditForm: TAskEditForm
       Width = 89
       Height = 73
       DrawEndPage = False
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 1
       Visible = False
     end

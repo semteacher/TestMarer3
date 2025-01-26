@@ -1,6 +1,6 @@
 object AdvTestModEditor: TAdvTestModEditor
-  Left = 1734
-  Top = 453
+  Left = 1118
+  Top = 324
   BorderStyle = bsDialog
   Caption = #1056#1077#1076#1082#1090#1086#1088' '#1089#1087#1080#1089#1082#1091' '#1084#1086#1076#1091#1083#1110#1074' '#1090#1077#1089#1090#1091
   ClientHeight = 533
@@ -23,7 +23,7 @@ object AdvTestModEditor: TAdvTestModEditor
     Width = 57
     Height = 13
     Caption = #1055#1088#1077#1076#1084#1077#1090':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clMaroon
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
@@ -36,7 +36,7 @@ object AdvTestModEditor: TAdvTestModEditor
     Width = 33
     Height = 13
     Caption = #1058#1077#1089#1090':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clMaroon
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
@@ -49,7 +49,7 @@ object AdvTestModEditor: TAdvTestModEditor
     Width = 70
     Height = 13
     Caption = #1060#1072#1082#1091#1083#1100#1090#1077#1090':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clMaroon
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
@@ -62,7 +62,7 @@ object AdvTestModEditor: TAdvTestModEditor
     Width = 56
     Height = 13
     Caption = #1057#1077#1084#1077#1089#1090#1088':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clMaroon
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
@@ -91,7 +91,7 @@ object AdvTestModEditor: TAdvTestModEditor
     DataField = 'SUBJNAME'
     DataSource = testeditDM.SubjectDS
     EditButtons = <>
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
@@ -110,7 +110,7 @@ object AdvTestModEditor: TAdvTestModEditor
     DataField = 'FACULTY'
     DataSource = testeditDM.SubjectDS
     EditButtons = <>
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
@@ -129,7 +129,7 @@ object AdvTestModEditor: TAdvTestModEditor
     DataField = 'TESTNAME'
     DataSource = testeditDM.SubjTestDS
     EditButtons = <>
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
@@ -146,7 +146,7 @@ object AdvTestModEditor: TAdvTestModEditor
     Width = 393
     Height = 200
     Caption = #1052#1086#1076#1091#1083#1110' '#1090#1077#1089#1090#1086#1074#1086#1075#1086' '#1073#1110#1083#1077#1090#1091':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
@@ -163,7 +163,7 @@ object AdvTestModEditor: TAdvTestModEditor
       Height = 25
       Caption = #1044#1086#1076#1072#1090#1080' '#1084#1086#1076#1091#1083#1100'!'
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -232,7 +232,7 @@ object AdvTestModEditor: TAdvTestModEditor
       ColumnDefValues.ToolTips = True
       DataSource = testeditDM.TestModDS
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clBlack
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -328,7 +328,7 @@ object AdvTestModEditor: TAdvTestModEditor
     Width = 817
     Height = 285
     Caption = #1055#1077#1088#1077#1083#1110#1082' '#1084#1086#1076#1091#1083#1110#1074' '#1090#1077#1089#1090#1086#1074#1080#1093' '#1087#1080#1090#1072#1085#1100' ('#1090#1077#1084', '#1088#1086#1079#1076#1110#1083#1110#1074', '#1085#1072#1091#1082'. '#1085#1072#1087#1088'.):'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
@@ -345,7 +345,7 @@ object AdvTestModEditor: TAdvTestModEditor
       Height = 25
       Caption = #1044#1086#1076#1072#1090#1080' '#1084#1086#1076#1091#1083#1100' '#1074' '#1090#1077#1089#1090'!'
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -362,7 +362,7 @@ object AdvTestModEditor: TAdvTestModEditor
       Height = 25
       Caption = #1047#1074#1110#1090' - '#1050#1110#1083#1100#1082#1110#1089#1090#1100' '#1087#1080#1090#1072#1085#1100' '#1087#1086' '#1090#1077#1084#1072#1093
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -377,7 +377,7 @@ object AdvTestModEditor: TAdvTestModEditor
       Height = 25
       Action = MainForm.UpdateAskcountCmd
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -398,7 +398,7 @@ object AdvTestModEditor: TAdvTestModEditor
       ColumnDefValues.ToolTips = True
       DataSource = testeditDM.FullSciensDS1
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clBlack
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -523,7 +523,7 @@ object AdvTestModEditor: TAdvTestModEditor
     DataField = 'SEMESTR'
     DataSource = testeditDM.SubjectDS
     EditButtons = <>
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
@@ -540,7 +540,7 @@ object AdvTestModEditor: TAdvTestModEditor
     Width = 421
     Height = 200
     Caption = #1042#1080#1073#1088#1072#1085#1110' '#1084#1086#1076#1091#1083#1110' '#1090#1077#1089#1090#1086#1074#1080#1093' '#1087#1080#1090#1072#1085#1100' '#1076#1083#1103' '#1073#1110#1083#1077#1090#1091':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
@@ -557,7 +557,7 @@ object AdvTestModEditor: TAdvTestModEditor
       Height = 25
       Caption = #1042#1080#1076#1072#1083#1080#1090#1080'!'
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -580,7 +580,7 @@ object AdvTestModEditor: TAdvTestModEditor
       ColumnDefValues.ToolTips = True
       DataSource = testeditDM.TSect2SCDS
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clBlack
       Font.Height = -11
       Font.Name = 'MS Sans Serif'

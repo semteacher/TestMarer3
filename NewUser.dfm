@@ -23,7 +23,7 @@ object NewUserForm: TNewUserForm
     Width = 162
     Height = 16
     Caption = #1030#1084'"'#1103' '#1076#1083#1103' '#1074#1093#1086#1076#1091' ('#1083#1086#1075#1110#1085'):'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -36,7 +36,7 @@ object NewUserForm: TNewUserForm
     Width = 60
     Height = 16
     Caption = #1055#1072#1088#1086#1083#1100':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -49,7 +49,7 @@ object NewUserForm: TNewUserForm
     Width = 185
     Height = 16
     Caption = #1055#1072#1088#1086#1083#1100' ('#1087#1110#1076#1090#1074#1077#1088#1076#1077#1078#1085#1085#1103'):'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -62,7 +62,7 @@ object NewUserForm: TNewUserForm
     Width = 75
     Height = 16
     Caption = #1055#1088#1110#1079#1074#1080#1097#1077':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -75,7 +75,7 @@ object NewUserForm: TNewUserForm
     Width = 33
     Height = 16
     Caption = #1030#1084'"'#1103':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -88,7 +88,7 @@ object NewUserForm: TNewUserForm
     Width = 94
     Height = 16
     Caption = #1055#1086'-'#1073#1072#1090#1100#1082#1086#1074#1110':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -101,7 +101,7 @@ object NewUserForm: TNewUserForm
     Width = 200
     Height = 16
     Caption = #1056#1086#1083#1100' ('#1087#1088#1072#1074#1072') '#1082#1086#1088#1080#1089#1090#1091#1074#1072#1095#1072':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -113,7 +113,7 @@ object NewUserForm: TNewUserForm
     Top = 8
     Width = 177
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -126,7 +126,7 @@ object NewUserForm: TNewUserForm
     Top = 40
     Width = 177
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -154,7 +154,7 @@ object NewUserForm: TNewUserForm
     Top = 72
     Width = 177
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -168,7 +168,7 @@ object NewUserForm: TNewUserForm
     Top = 104
     Width = 177
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -182,7 +182,7 @@ object NewUserForm: TNewUserForm
     Top = 136
     Width = 177
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -196,7 +196,7 @@ object NewUserForm: TNewUserForm
     Top = 168
     Width = 177
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
@@ -210,7 +210,7 @@ object NewUserForm: TNewUserForm
     Top = 200
     Width = 177
     Height = 24
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'

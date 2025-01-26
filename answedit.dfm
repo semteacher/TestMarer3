@@ -51,7 +51,7 @@ object AnswEditForm: TAnswEditForm
       Width = 55
       Height = 13
       Caption = #1055#1080#1090#1072#1085#1085#1103':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -65,6 +65,12 @@ object AnswEditForm: TAnswEditForm
       Height = 38
       DataField = 'ASKTEXT2'
       DataSource = testeditDM.TestAskDS
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
       ReadOnly = True
       TabOrder = 0
     end
@@ -85,7 +91,7 @@ object AnswEditForm: TAnswEditForm
       Caption = 
         #1055#1088#1080#1084#1110#1090#1082#1072': 0 - '#1085#1077#1087#1088#1072#1074#1080#1083#1100#1085#1072' '#1074#1110#1076#1087#1086#1074#1110#1076#1100'. 1 ... - '#1074#1072#1075#1072' '#1087#1088#1072#1074#1080#1083#1100#1085#1086#1111' '#1074#1110#1076 +
         #1087#1086#1074#1110#1076#1110
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -98,7 +104,7 @@ object AnswEditForm: TAnswEditForm
       Width = 88
       Height = 13
       Caption = #1042#1072#1075#1072' '#1074#1110#1076#1087#1086#1074#1110#1076#1110':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -111,7 +117,7 @@ object AnswEditForm: TAnswEditForm
       Width = 70
       Height = 13
       Caption = #1055#1086#1103#1089#1085#1077#1085#1085#1103':'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -155,7 +161,7 @@ object AnswEditForm: TAnswEditForm
         Left = 374
         Top = 5
         Width = 42
-        Height = 21
+        Height = 24
         Alignment = taRightJustify
         ButtonKind = bkStandard
         Decimal = 0
@@ -394,7 +400,7 @@ object AnswEditForm: TAnswEditForm
       Height = 65
       DataField = 'ANSWERTEXT1'
       DataSource = testeditDM.AnswerDS
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
       Font.Name = 'Times New Roman'
@@ -437,7 +443,13 @@ object AnswEditForm: TAnswEditForm
       DataField = 'EXPLANATION'
       DataSource = testeditDM.AnswerDS
       EditButtons = <>
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
       Flat = True
+      ParentFont = False
       TabOrder = 3
       Visible = True
       WordWrap = True
@@ -461,7 +473,7 @@ object AnswEditForm: TAnswEditForm
       Height = 25
       Caption = #1042#1080#1076#1072#1083#1080#1090#1080' '#1110#1083#1102#1089#1090#1088#1072#1094#1110#1102
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -477,7 +489,7 @@ object AnswEditForm: TAnswEditForm
       Height = 25
       Caption = #1044#1086#1073#1072#1074#1080#1090#1080' '#1110#1083#1102#1089#1090#1088#1072#1094#1110#1102
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -493,7 +505,7 @@ object AnswEditForm: TAnswEditForm
       Height = 25
       Caption = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079' '#1073#1091#1092#1077#1088#1091
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -511,7 +523,7 @@ object AnswEditForm: TAnswEditForm
         #1059' '#1074#1080#1087#1072#1076#1082#1091', '#1103#1082#1097#1086' '#1074#1089#1090#1072#1074#1082#1072' '#1079' '#1073#1091#1092#1077#1088#1091' '#1085#1077' '#1074#1110#1076#1073#1091#1074#1072#1108#1090#1100#1089#1103', '#1074#1089#1090#1072#1074#1090#1077' '#1076#1072#1085#1080#1081' ' +
         #1086#1073#39#1108#1082#1090' '#1074' '#1076#1086#1082#1091#1084#1077#1085#1090' Word, '#1089#1082#1086#1087#1110#1102#1081#1090#1077' '#1081#1086#1075#1086' '#1074' '#1073#1091#1092#1077#1088', '#1110' '#1074#1089#1090#1072#1074#1083#1103#1081#1090#1077' '#1087#1086#1074 +
         #1090#1086#1088#1085#1086'.'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clBlue
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -527,7 +539,7 @@ object AnswEditForm: TAnswEditForm
       Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079' '#1087#1077#1088#1077#1090#1074#1086#1088#1077#1085#1085#1103#1084' '#1086#1073'"'#1108#1082#1090#1072
       Caption = #1042#1089#1090#1072#1074#1080#1090#1080' '#1103#1082'...'
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -544,6 +556,12 @@ object AnswEditForm: TAnswEditForm
       Anchors = [akLeft, akTop, akRight, akBottom]
       DataField = 'ANSWERIMAG'
       DataSource = testeditDM.AnswerDS
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
     end
     object RxRichEdit1: TRxRichEdit
@@ -552,6 +570,12 @@ object AnswEditForm: TAnswEditForm
       Width = 121
       Height = 26
       DrawEndPage = False
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 1
       Visible = False
     end
@@ -579,7 +603,7 @@ object AnswEditForm: TAnswEditForm
       Height = 25
       Caption = #1044#1086#1076#1072#1090#1080' '#1074#1110#1076#1087#1086#1074#1110#1076#1100
       Flat = True
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
@@ -611,7 +635,7 @@ object AnswEditForm: TAnswEditForm
       Top = 14
       Width = 354
       Height = 168
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
       Font.Name = 'MS Sans Serif'

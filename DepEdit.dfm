@@ -54,7 +54,7 @@ object DepEditForm: TDepEditForm
     Anchors = [akLeft, akTop, akBottom]
     Caption = #1044#1086#1073#1072#1074#1080#1090#1080' '#1082#1072#1092#1077#1076#1088#1091' ('#1087#1110#1076#1088#1086#1079#1076#1110#1083')!'
     Flat = True
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clMaroon
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
@@ -71,7 +71,7 @@ object DepEditForm: TDepEditForm
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = #1042#1080#1076#1072#1083#1080#1090#1080' '#1082#1072#1092#1077#1076#1088#1091' ('#1087#1110#1076#1088#1086#1079#1076#1110#1083')!'
     Flat = True
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clMaroon
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
@@ -91,7 +91,7 @@ object DepEditForm: TDepEditForm
     ColumnDefValues.Title.Alignment = taCenter
     DataSource = testeditDM.DepartDS
     Flat = True
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
     Font.Name = 'MS Sans Serif'

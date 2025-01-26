@@ -22,7 +22,7 @@ object LoginForm: TLoginForm
     Width = 56
     Height = 16
     Caption = #1055#1072#1088#1086#1083#1100
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clNavy
     Font.Height = -13
     Font.Name = 'MS Sans Serif'

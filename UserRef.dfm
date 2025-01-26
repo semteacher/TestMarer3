@@ -37,6 +37,12 @@ object UserRefForm: TUserRefForm
     Height = 375
     ActivePage = AppUserPage
     Align = alClient
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 1
     object AppUserPage: TTabSheet
       Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095#1110' '#1087#1088#1086#1075#1088#1072#1084#1080
@@ -47,7 +53,7 @@ object UserRefForm: TUserRefForm
         Height = 25
         Caption = #1047#1084#1110#1085#1080#1090#1080' '#1087#1072#1088#1086#1083#1100
         Flat = True
-        Font.Charset = DEFAULT_CHARSET
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clMaroon
         Font.Height = -12
         Font.Name = 'MS Sans Serif'
@@ -63,7 +69,7 @@ object UserRefForm: TUserRefForm
         Height = 25
         Caption = #1044#1086#1073#1072#1074#1080#1090#1080' '#1082#1086#1088#1080#1089#1090#1091#1074#1072#1095#1072
         Flat = True
-        Font.Charset = DEFAULT_CHARSET
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clMaroon
         Font.Height = -12
         Font.Name = 'MS Sans Serif'
@@ -79,7 +85,7 @@ object UserRefForm: TUserRefForm
         Height = 25
         Caption = #1047#1088#1086#1073#1080#1090#1080' '#1082#1086#1088#1080#1089#1090#1091#1074#1072#1095#1077#1084' '#1089#1077#1088#1074#1077#1088#1072' '#1041#1044
         Flat = True
-        Font.Charset = DEFAULT_CHARSET
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clMaroon
         Font.Height = -12
         Font.Name = 'MS Sans Serif'
@@ -95,7 +101,7 @@ object UserRefForm: TUserRefForm
         Height = 25
         Caption = #1042#1080#1076#1072#1083#1080#1090#1080' '#1082#1086#1088#1080#1089#1090#1091#1074#1072#1095#1072
         Flat = True
-        Font.Charset = DEFAULT_CHARSET
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clMaroon
         Font.Height = -12
         Font.Name = 'MS Sans Serif'
@@ -116,7 +122,7 @@ object UserRefForm: TUserRefForm
         ColumnDefValues.Title.ToolTips = True
         DataSource = testeditDM.LibUserDS
         Flat = True
-        Font.Charset = DEFAULT_CHARSET
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
         Font.Name = 'MS Sans Serif'

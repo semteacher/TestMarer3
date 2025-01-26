@@ -1,6 +1,6 @@
 object LangRefForm: TLangRefForm
-  Left = 188
-  Top = 191
+  Left = 374
+  Top = 192
   BorderStyle = bsDialog
   Caption = #1044#1086#1074#1110#1076#1085#1080#1082' "'#1052#1086#1074#1080' '#1090#1077#1089#1090#1110#1074'"'
   ClientHeight = 266
@@ -25,7 +25,7 @@ object LangRefForm: TLangRefForm
     ColumnDefValues.Title.Alignment = taCenter
     DataSource = testeditDM.LangDS
     Flat = True
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
     Font.Name = 'MS Sans Serif'

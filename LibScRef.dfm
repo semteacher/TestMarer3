@@ -1,6 +1,6 @@
 object LibSciensRefEditor: TLibSciensRefEditor
-  Left = 232
-  Top = 217
+  Left = 408
+  Top = 214
   BorderStyle = bsDialog
   Caption = #1044#1086#1074#1110#1076#1085#1080#1082' "'#1053#1072#1091#1082#1086#1074#1110' '#1085#1072#1087#1088#1103#1084#1082#1080'"'
   ClientHeight = 453
@@ -40,7 +40,7 @@ object LibSciensRefEditor: TLibSciensRefEditor
     ColumnDefValues.Title.Alignment = taCenter
     DataSource = testeditDM.LibSciensDS
     Flat = True
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
