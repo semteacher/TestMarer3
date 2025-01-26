@@ -586,7 +586,7 @@ object AnswEditForm: TAnswEditForm
     Width = 361
     Height = 212
     Caption = #1042#1089#1110' '#1074#1110#1076#1087#1086#1074#1110#1076#1110' '#1076#1086' '#1072#1082#1090#1080#1074#1085#1086#1075#1086' '#1087#1080#1090#1072#1085#1085#1103':'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
     Font.Name = 'MS Sans Serif'

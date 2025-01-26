@@ -31,7 +31,7 @@ object LangRefForm: TLangRefForm
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     FooterColor = clWindow
-    FooterFont.Charset = DEFAULT_CHARSET
+    FooterFont.Charset = RUSSIAN_CHARSET
     FooterFont.Color = clWindowText
     FooterFont.Height = -11
     FooterFont.Name = 'MS Sans Serif'
@@ -41,7 +41,7 @@ object LangRefForm: TLangRefForm
     OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghRowHighlight, dghDialogFind]
     ParentFont = False
     TabOrder = 0
-    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Charset = RUSSIAN_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'

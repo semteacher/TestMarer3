@@ -35,7 +35,7 @@ object UserRefForm: TUserRefForm
     Top = 0
     Width = 752
     Height = 375
-    ActivePage = AppUserPage
+    ActivePage = DBServerUserPage
     Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -128,7 +128,7 @@ object UserRefForm: TUserRefForm
         Font.Name = 'MS Sans Serif'
         Font.Style = []
         FooterColor = clWindow
-        FooterFont.Charset = DEFAULT_CHARSET
+        FooterFont.Charset = RUSSIAN_CHARSET
         FooterFont.Color = clWindowText
         FooterFont.Height = -11
         FooterFont.Name = 'MS Sans Serif'
@@ -137,7 +137,7 @@ object UserRefForm: TUserRefForm
         OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghRowHighlight, dghDialogFind]
         ParentFont = False
         TabOrder = 0
-        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Charset = RUSSIAN_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'

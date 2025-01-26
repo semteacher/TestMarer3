@@ -67,7 +67,7 @@ object MoveTestAsk: TMoveTestAsk
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       FooterColor = clWindow
-      FooterFont.Charset = DEFAULT_CHARSET
+      FooterFont.Charset = RUSSIAN_CHARSET
       FooterFont.Color = clBlack
       FooterFont.Height = -11
       FooterFont.Name = 'MS Sans Serif'
@@ -85,7 +85,7 @@ object MoveTestAsk: TMoveTestAsk
       STFilter.Local = True
       STFilter.Visible = True
       TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Charset = RUSSIAN_CHARSET
       TitleFont.Color = clBlack
       TitleFont.Height = -11
       TitleFont.Name = 'MS Sans Serif'
