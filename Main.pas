@@ -1162,9 +1162,8 @@ end;
 procedure TMainForm.PrintOffPaperFReportExecute(Sender: TObject);
 var
   tmpfilter : string;
-  VariantTitle, Memo1 : TfrxMemoView;
+  VariantTitle : TfrxMemoView;
   Rich1 : TfrxRichView;
-  mf: TFont;
 begin
   CheckPreparePaper(false);
   //disable filter
@@ -1191,13 +1190,8 @@ begin
   else if testeditDM.SubjTestDataSet.FBN('lanng_search').AsString ='Українська' then VariantTitle.Text := 'Варіант:'
        else VariantTitle.Text := 'Вариант:';
 
-  Memo1 := testeditDM.AskListReport.FindObject('Memo1') as TfrxMemoView;
+  // Force font face and size
   Rich1 := testeditDM.AskListReport.FindObject('Rich1') as TfrxRichView;
-  //Rich1.Font.Name := 'Times New Roman';
-  //Rich1.Font.Charset := RUSSIAN_CHARSET;
-  //Rich1.Font.Size := 11;
-
-  Rich1.Font := Memo1.Font;
   Rich1.RichEdit.Font.Name := 'Times New Roman';
   Rich1.RichEdit.Font.Charset := RUSSIAN_CHARSET;
   Rich1.RichEdit.Font.Size := 11;
@@ -1298,6 +1292,7 @@ var
   tmp_ask_ds, tmp_answ_ds : tdatasource;
   nm0, nm1, nm2, nm3 : string;
   tmp_filter_flag, ShowArchive : boolean;
+  Rich1 : TfrxRichView;
 begin
   //log action
   testeditDM.write_log('Запит списку питань без вказаних правильних відповідей по модулю (розділу):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
@@ -1331,6 +1326,11 @@ begin
       nm2 := ModulesDBGridEh.Fields[3].AsString; //language name
       nm3 := 'sem_'+ModulesDBGridEh.Fields[5].AsString;   //semestr number
       testeditDM.AskListRTFExport.FileName := FileNameAutoCorrect(nm0 + '_' + nm1 + '_'+ nm2 + '_'+ nm3+RTF_ext);
+      // Force font with size 11 pt (or more)
+      Rich1 := testeditDM.AskListReport.FindObject('Rich1') as TfrxRichView;
+      Rich1.RichEdit.Font.Name := 'Times New Roman';
+      Rich1.RichEdit.Font.Charset := RUSSIAN_CHARSET;
+      Rich1.RichEdit.Font.Size := 11;
       //show report
       testeditDM.AskListRTFExport.ShowDialog := true;
       testeditDM.AskListReport.ShowReport();
@@ -1353,6 +1353,7 @@ var
   tmp_ask_ds, tmp_answ_ds : tdatasource;
   nm0, nm1, nm2, nm3 : string;
   tmp_filter_flag, ShowArchive : boolean;
+  Rich1 : TfrxRichView;
 begin
   //log action
   testeditDM.write_log('Запит списку питань без вказаних правильних відповідей по модулю (розділу):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
@@ -1386,6 +1387,11 @@ begin
       nm2 := ModulesDBGridEh.Fields[3].AsString; //language name
       nm3 := 'sem_'+ModulesDBGridEh.Fields[5].AsString;   //semestr number
       testeditDM.AskListRTFExport.FileName := FileNameAutoCorrect(nm0 + '_' + nm1 + '_'+ nm2 + '_'+ nm3+RTF_ext);
+      // Firce font with size 11 pt (or more)
+      Rich1 := testeditDM.AskListReport.FindObject('Rich1') as TfrxRichView;
+      Rich1.RichEdit.Font.Name := 'Times New Roman';
+      Rich1.RichEdit.Font.Charset := RUSSIAN_CHARSET;
+      Rich1.RichEdit.Font.Size := 11;
       //show report
       testeditDM.AskListRTFExport.ShowDialog := true;
       testeditDM.AskListReport.ShowReport();
@@ -2125,6 +2131,7 @@ var
   nm0, nm1, nm2, nm3, initfolder, batchscienslisfoder, batchscienslistfilename : string;
   batchscienslist : tstringlist;
   tmp_filter_flag, loadsuccesful, repbuildsuccessful, repexportsucessful, ShowAnswers, ShowArchive : boolean;
+  Rich1 : TfrxRichView;
 begin
   if OpenDialogTXT.Execute then
   begin
@@ -2182,6 +2189,11 @@ begin
                 nm2 := ModulesDBGridEh.Fields[3].AsString; //language name
                 nm3 := 'sem_'+ModulesDBGridEh.Fields[5].AsString;   //semestr number
                 testeditDM.AskListRTFExport.FileName := batchscienslisfoder + '\' + FileNameAutoCorrect(nm0 + '_' + nm1 + '_'+ nm2 + '_'+ nm3+RTF_ext);
+                // Force font with size 11 pt (or more)
+                Rich1 := testeditDM.AskListReport.FindObject('Rich1') as TfrxRichView;
+                Rich1.RichEdit.Font.Name := 'Times New Roman';
+                Rich1.RichEdit.Font.Charset := RUSSIAN_CHARSET;
+                Rich1.RichEdit.Font.Size := 11;
                 //build report without dislpay
        //         repbuildsuccessful := testeditDM.AskListReport.ShowReport();
                 repbuildsuccessful := testeditDM.AskListReport.PrepareReport(true);
