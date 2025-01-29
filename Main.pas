@@ -1297,9 +1297,10 @@ procedure TMainForm.PrintAskListExecute(Sender: TObject);
 var
   tmp_ask_ds, tmp_answ_ds : tdatasource;
   nm0, nm1, nm2, nm3 : string;
+  tmp_filter_flag, ShowArchive : boolean;
 begin
   //log action
-  testeditDM.write_log('Запит списку питань з вказаними правильними відповідями по модулю (розділу):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
+  testeditDM.write_log('Запит списку питань без вказаних правильних відповідей по модулю (розділу):',ModulesDBGridEh.Columns[1].DisplayText, basevar.Settings.LUserID, basevar.Settings.LUserDepID, strtoint(ModulesDBGridEh.Columns[0].DisplayText));
   //disable dcWaitEndMasterScroll - options
   testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen];
   //set cursor face
@@ -1310,17 +1311,28 @@ begin
   tmp_answ_ds := AnswGridDBTableView1.DataController.DataSource;
   AnswGridDBTableView1.DataController.DataSource := nil;
   try
+    //get archive export option
+    if MessageDlg('Експортувати також і архівні питання?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then ShowArchive := true
+    else ShowArchive := false;
+    //options-do not show answers
+    if Sender=PrintAskListWithoutAnsw2 then ShowAnswers := false;
+    if Sender=PrintAskList then ShowAnswers := true;
+    testeditDM.PrepareCurrentSciensAsksList(testeditDM.SciensDataSet.fbn('ID_sciens').AsString, ShowAnswers, ShowArchive);  {2012-04-24}
+    tmp_filter_flag := testeditDM.RedyPaperMemTable.Filtered; {+2014/08/12 - fix 0 question export for admins}
+    testeditDM.RedyPaperMemTable.Filtered:=false;  {+2014/08/12 - fix 0 question export for admins}
     //load report template
-    testeditDM.AskListReport.LoadFromFile(ExtractFilePath(Application.ExeName)+Rep_AskListWithAnswers,true);
+    if (Sender=PrintAskListWithoutAnsw2) or (Sender=PrintAskList) then testeditDM.AskListReport.LoadFromFile(ExtractFilePath(Application.ExeName)+Rep_AskListWithoutAnswers2,true)
+    else  testeditDM.AskListReport.LoadFromFile(ExtractFilePath(Application.ExeName)+Rep_AskListWithoutAnswers,true);
+    testeditDM.AskListRTFExport.FileName := leftstr(testeditDM.SciensDataSet.fbn('SC_NAME').AsString,30)+RTF_ext;
     try
       //prepare filename template
       nm0 := 'ID_'+ModulesDBGridEh.fields[0].AsString;//module ID
       nm1 := leftstr(ModulesDBGridEh.fields[1].AsString,30);  //module name
       nm2 := ModulesDBGridEh.Fields[3].AsString; //language name
-      nm3 := 'sem_N-'+ModulesDBGridEh.Fields[5].AsString;   //semestr number
+      nm3 := 'sem_'+ModulesDBGridEh.Fields[5].AsString;   //semestr number
       testeditDM.AskListRTFExport.FileName := FileNameAutoCorrect(nm0 + '_' + nm1 + '_'+ nm2 + '_'+ nm3+RTF_ext);
-      testeditDM.AskListRTFExport.ShowDialog := true;
       //show report
+      testeditDM.AskListRTFExport.ShowDialog := true;
       testeditDM.AskListReport.ShowReport();
     except
     end;
@@ -1332,6 +1344,7 @@ begin
     cursor := crDefault;
     //enable dcWaitEndMasterScroll - options
     testeditDM.AnswerDataSet.DetailConditions :=[dcForceOpen, dcWaitEndMasterScroll];
+    testeditDM.RedyPaperMemTable.Filtered:=tmp_filter_flag;  {+2014/08/12 - fix 0 question export for admins}
   end;
 end;
 {----export ask list by selected sciens without answer-----}
