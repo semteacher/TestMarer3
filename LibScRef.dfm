@@ -66,7 +66,7 @@ object LibSciensRefEditor: TLibSciensRefEditor
         FieldName = 'ID_SC_LIB'
         Footers = <>
         ReadOnly = True
-        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Charset = RUSSIAN_CHARSET
         Title.Font.Color = clWindowText
         Title.Font.Height = -12
         Title.Font.Name = 'MS Sans Serif'
@@ -77,7 +77,7 @@ object LibSciensRefEditor: TLibSciensRefEditor
         EditButtons = <>
         FieldName = 'LIB_SC_NAME'
         Footers = <>
-        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Charset = RUSSIAN_CHARSET
         Title.Font.Color = clWindowText
         Title.Font.Height = -12
         Title.Font.Name = 'MS Sans Serif'
@@ -88,7 +88,7 @@ object LibSciensRefEditor: TLibSciensRefEditor
         EditButtons = <>
         FieldName = 'LIB_SC_DESC'
         Footers = <>
-        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Charset = RUSSIAN_CHARSET
         Title.Font.Color = clWindowText
         Title.Font.Height = -11
         Title.Font.Name = 'MS Sans Serif'

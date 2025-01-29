@@ -35,7 +35,7 @@ object UserRefForm: TUserRefForm
     Top = 0
     Width = 752
     Height = 375
-    ActivePage = DBServerUserPage
+    ActivePage = AppUserPage
     Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -148,7 +148,7 @@ object UserRefForm: TUserRefForm
             EditButtons = <>
             FieldName = 'LASTNAME'
             Footers = <>
-            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Charset = RUSSIAN_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'MS Sans Serif'
@@ -159,7 +159,7 @@ object UserRefForm: TUserRefForm
             EditButtons = <>
             FieldName = 'FIRSTNAME'
             Footers = <>
-            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Charset = RUSSIAN_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'MS Sans Serif'
@@ -170,7 +170,7 @@ object UserRefForm: TUserRefForm
             EditButtons = <>
             FieldName = 'MIDDLENAME'
             Footers = <>
-            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Charset = RUSSIAN_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'MS Sans Serif'
@@ -181,7 +181,7 @@ object UserRefForm: TUserRefForm
             EditButtons = <>
             FieldName = 'USERNAME'
             Footers = <>
-            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Charset = RUSSIAN_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'MS Sans Serif'
@@ -193,7 +193,7 @@ object UserRefForm: TUserRefForm
             EditButtons = <>
             FieldName = 'usertype_search'
             Footers = <>
-            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Charset = RUSSIAN_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'MS Sans Serif'
@@ -204,7 +204,7 @@ object UserRefForm: TUserRefForm
             EditButtons = <>
             FieldName = 'EMAIL'
             Footers = <>
-            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Charset = RUSSIAN_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -12
             Title.Font.Name = 'MS Sans Serif'

@@ -3224,7 +3224,7 @@ object testeditDM: TtesteditDM
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 9
     ReportOptions.CreateDate = 40125.744610821800000000
-    ReportOptions.LastChange = 45683.408070196760000000
+    ReportOptions.LastChange = 45686.786190312500000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'procedure GroupHeader2OnBeforePrint(Sender: TfrxComponent);'
@@ -3255,11 +3255,7 @@ object testeditDM: TtesteditDM
       'end;'
       ''
       'procedure Rich1OnAfterData(Sender: TfrxComponent);'
-      'begin'
-      '  Rich1.RichEdit.font := Memo1.font;                         '
-      '  //Rich1.Font.Name := '#39'Times New Roman'#39';  '
-      '  //Rich1.Font.Charset := RUSSIAN_CHARSET;  '
-      '  //Rich1.Font.size := 11;            '
+      'begin            '
       'end;'
       ''
       'begin'
@@ -3788,7 +3784,7 @@ object testeditDM: TtesteditDM
       Font.Name = 'Tahoma'
       Font.Style = []
       Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1080' '#1079#1074#1110#1090#1091
-      Height = 161.000000000000000000
+      Height = 165.000000000000000000
       ClientHeight = 131.000000000000000000
       Left = 320.000000000000000000
       Top = 150.000000000000000000
